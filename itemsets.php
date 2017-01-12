@@ -25,7 +25,7 @@ if (!$itemsets = load_cache(9, 'x')) {
     $rows = $DB->select('
 		SELECT ?#
 		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_itemset
-		ORDER by name_loc' . $_SESSION['locale'] . '
+		ORDER by name' . '
 		{LIMIT ?d}', $itemset_col[0], ($UDWBaseconf['limit'] != 0) ? $UDWBaseconf['limit'] : DBSIMPLE_SKIP
     );
 

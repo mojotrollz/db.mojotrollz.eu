@@ -249,7 +249,7 @@ function coord_db2wow($mapid, $x, $y, $global) {
     foreach ($rows as $numRow => $row) {
         // Сохраяняем имя карты и координаты
         $wow['zone'] = $row['areatableID'];
-        $wow['name'] = $row['name_loc' . $_SESSION['locale']];
+        $wow['name'] = $row['name'];
 
         // Т.к. в игре координаты начинают отсчёт с левого верхнего угла
         //  а в системе координат сервера с правого нижнего,
@@ -282,7 +282,7 @@ function coord_db2wow($mapid, $x, $y, $global) {
         $row = $DB->selectRow('SELECT * FROM '.'host_mojotrollz_aowow'.'.?_aowow_zones WHERE (mapID=? and x_min=0 and x_max=0 and y_min=0 and y_max=0)', $mapid);
         if ($row) {
             $wow['zone'] = $row['areatableID'];
-            $wow['name'] = $row['name_loc' . $_SESSION['locale']];
+            $wow['name'] = $row['name'];
         } else {
             echo "<font color=red>....Location for Map with ID=$mapid not found</font><br>";
             return;
@@ -345,7 +345,7 @@ function mass_coord(&$data) {
  */
 function factioninfo($id) {
     global $DB;
-    $faction['name'] = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_factions WHERE factionID = ?d LIMIT 1', $id);
+    $faction['name'] = $DB->selectCell('SELECT name' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_factions WHERE factionID = ?d LIMIT 1', $id);
     $faction['entry'] = $id;
     return $faction;
 }

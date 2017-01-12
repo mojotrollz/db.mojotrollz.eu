@@ -131,9 +131,9 @@ function b_type($type, $value) {
  * @return type 
  */
 function req_spell($spell_id) {
-    global $aDB;
+    global $DB;
     //TODO $UDWBaseconf['aowow']['db']
-    return $aDB->selectCell('SELECT spellname_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_spell WHERE spellID=?d LIMIT 1', $spell_id);
+    return $DB->selectCell('SELECT spellname' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_spell WHERE spellID=?d LIMIT 1', $spell_id);
 }
 
 /**
@@ -197,7 +197,7 @@ function allitemsinfo2(&$Row, $level=0) {
         $Row['quality'] = 6;
     $allitems[$num]['quality'] = $Row['quality'];
     // Название вещи вместе с локализацией
-    $allitems[$num]['name'] = !empty($Row['name_loc']) ? $Row['name_loc'] : $Row['name'];
+    $allitems[$num]['name'] = $Row['name'];
     // Заполняем инфу о вещи
     if ($level > 0) {
         $allitems[$num]['info'] = render_item_tooltip($Row);
@@ -303,7 +303,7 @@ function render_item_tooltip(&$Row) {
     // Локация, для которой предназначен этот предмет
     if ($Row['Map'])
         //TODO $UDWBaseconf['aowow']['db']
-        $x .= '<br />' . $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_zones WHERE mapid=?d LIMIT 1', $Row['Map']);;
+        $x .= '<br />' . $DB->selectCell('SELECT name' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_zones WHERE mapid=?d LIMIT 1', $Row['Map']);;
 
     // Теперь в зависимости от типа предмета
     if ($Row['ContainerSlots'] > 1)
@@ -384,7 +384,7 @@ function render_item_tooltip(&$Row) {
     // Требуемый скилл (755 - Jewecrafting)
     if (($Row['RequiredSkill']) and ($Row['RequiredSkill'] != 755)) {
         //TODO $UDWBaseconf['aowow']['db']
-        $x .= LOCALE_REQUIRES . ' ' . $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_skill WHERE skillID=?d LIMIT 1', $Row['RequiredSkill']);
+        $x .= LOCALE_REQUIRES . ' ' . $DB->selectCell('SELECT name' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_skill WHERE skillID=?d LIMIT 1', $Row['RequiredSkill']);
         if ($Row['RequiredSkillRank'])
             $x .= ' (' . $Row['RequiredSkillRank'] . ')';
         $x .= '<br />';
@@ -446,7 +446,7 @@ function render_item_tooltip(&$Row) {
         // Если требуется скилл
         if ($row['skillID']) {
             //TODO $UDWBaseconf['aowow']['db']
-            $name = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_skill WHERE skillID=?d LIMIT 1', $row['skillID']);
+            $name = $DB->selectCell('SELECT name' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_skill WHERE skillID=?d LIMIT 1', $row['skillID']);
             $x .= LOCALE_REQUIRES . ' <a href="?spells=11.' . $row['skillID'] . '" class="q1">' . $name . '</a>';
             if ($row['skilllevel'])
                 $x .= ' (' . $row['skilllevel'] . ')';

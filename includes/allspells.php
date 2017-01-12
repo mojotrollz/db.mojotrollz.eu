@@ -291,8 +291,8 @@ $spell_effect_names = array(
 );
 
 $spell_cols[0] = array('spellID', 'iconname', 'effect1itemtype', 'effect1Aura');
-$spell_cols[1] = array('spellID', 'iconname', 'durationID', 'tooltip_loc' . $_SESSION['locale'], 'spellname_loc' . $_SESSION['locale'], 'rank_loc' . $_SESSION['locale'], 'rangeID', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1');
-$spell_cols[2] = array('spellname_loc' . $_SESSION['locale'], 'rank_loc' . $_SESSION['locale'], 'levelspell', 'resistancesID', 'effect1itemtype', 'effect2itemtype', 'effect3itemtype', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'iconname', 'effect1Aura', 'effect2Aura', 'effect3Aura');
+$spell_cols[1] = array('spellID', 'iconname', 'durationID', 'tooltip', 'spellname', 'rank', 'rangeID', 'manacost', 'manacostpercent', 'spellcasttimesID', 'cooldown', 'tool1', 'tool2', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'effect1Amplitude', 'effect2Amplitude', 'effect3Amplitude', 'effect1DieSides', 'effect2DieSides', 'effect3DieSides', 'effect1ChainTarget', 'effect2ChainTarget', 'effect3ChainTarget', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'effect1radius', 'effect2radius', 'effect3radius', 'effect1MiscValue', 'effect2MiscValue', 'effect3MiscValue', 'ChannelInterruptFlags', 'procChance', 'procCharges', 'effect_1_proc_chance', 'effect_2_proc_chance', 'effect_3_proc_chance', 'effect1itemtype', 'effect1Aura', 'spellTargets', 'dmg_multiplier1');
+$spell_cols[2] = array('spellname', 'rank', 'levelspell', 'resistancesID', 'effect1itemtype', 'effect2itemtype', 'effect3itemtype', 'effect1BasePoints', 'effect2BasePoints', 'effect3BasePoints', 'reagent1', 'reagent2', 'reagent3', 'reagent4', 'reagent5', 'reagent6', 'reagent7', 'reagent8', 'reagentcount1', 'reagentcount2', 'reagentcount3', 'reagentcount4', 'reagentcount5', 'reagentcount6', 'reagentcount7', 'reagentcount8', 'iconname', 'effect1Aura', 'effect2Aura', 'effect3Aura');
 
 /**
  *
@@ -342,7 +342,7 @@ function spell_desc2($spellRow, $type='tooltip') {
 
     $signs = array('+', '-', '/', '*', '%', '^');
 
-    $data = $spellRow[$type . '_loc' . $_SESSION['locale']];
+    $data = $spellRow[$type];
 
     if ((!$data) and $type = 'tooltip')
         return '_empty_';
@@ -722,13 +722,13 @@ function render_spell_tooltip(&$row) {
     $x = '';
     $x .= '<table><tr><td>';
 
-    if ($row['rank_loc' . $_SESSION['locale']])
+    if ($row['rank'])
         $x .= '<table width="100%"><tr><td>';
 
-    $x .= '<b>' . $row['spellname_loc' . $_SESSION['locale']] . '</b><br />';
+    $x .= '<b>' . $row['spellname'] . '</b><br />';
 
-    if ($row['rank_loc' . $_SESSION['locale']])
-        $x .= '</td><th><b class="q0">' . $row['rank_loc' . $_SESSION['locale']] . '</b></th></tr></table>';
+    if ($row['rank'])
+        $x .= '</td><th><b class="q0">' . $row['rank'] . '</b></th></tr></table>';
 
     if (($range) and (($row['manacost'] > 0) or ($row['manacostpercent'] > 0)))
         $x .= '<table width="100%"><tr><td>';
@@ -835,7 +835,7 @@ function allspellsinfo2(&$row, $level=0) {
 
     // Тултип спелла
     if ($level > 0) {
-        $spellNameKey = 'spellname' . '_loc' . $_SESSION['locale'];
+        $spellNameKey = 'spellname';
         $allspells[$num]['name'] = $row[$spellNameKey] ;
         $allspells[$num]['info'] = render_spell_tooltip($row);
     }
@@ -863,7 +863,7 @@ function spell_buff_render($row) {
 
     // Тип диспела
     if ($row['dispeltypeID']) {
-        $dispel = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_spelldispeltype WHERE id=? LIMIT 1', $row['dispeltypeID']);
+        $dispel = $DB->selectCell('SELECT name' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_spelldispeltype WHERE id=? LIMIT 1', $row['dispeltypeID']);
         $x .= '<th><b class="q">' . $dispel . '</b></th>';
     }
 
@@ -947,8 +947,8 @@ function spellinfo2(&$row) {
         $spell = array();
         $spell['entry'] = $row['spellID'];
         $spell['quality'] = '@';
-        $spell['name'] = $row['spellname_loc' . $_SESSION['locale']];
-        $spell['rank'] = $row['rank_loc' . $_SESSION['locale']];
+        $spell['name'] = $row['spellname'];
+        $spell['rank'] = $row['rank'];
         $spell['level'] = $row['levelspell'];
         $spell['school'] = $row['resistancesID'];
         // TODO: Что за cat?

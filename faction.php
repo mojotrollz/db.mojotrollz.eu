@@ -31,7 +31,7 @@ if (!$faction = load_cache(18, intval($id))) {
     global $DB;
 
     $row = $DB->selectRow('
-			SELECT factionID, name_loc' . $_SESSION['locale'] . ', description1_loc' . $_SESSION['locale'] . ', description2_loc' . $_SESSION['locale'] . ', team, side
+			SELECT factionID, name' . ', description1' . ', description2' . ', team, side
 			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions
 			WHERE factionID=?d
 			LIMIT 1
@@ -42,14 +42,14 @@ if (!$faction = load_cache(18, intval($id))) {
         // Номер фракции
         $faction['entry'] = $row['factionID'];
         // Название фракции
-        $faction['name'] = $row['name_loc' . $_SESSION['locale']];
+        $faction['name'] = $row['name'];
         // Описание фракции, из клиента:
         $faction['description1'] = $row['description1_loc' . $_SESSION['locale']];
         // Описание фракции, c wowwiki.com, находится в таблице factions.sql:
         $faction['description2'] = $row['description2_loc' . $_SESSION['locale']];
         // Команда/Группа фракции
         if ($row['team'] != 0)
-            $faction['group'] = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $row['team']);
+            $faction['group'] = $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $row['team']);
         // Альянс(1)/Орда(2)
         if ($row['side'] != 0)
             $faction['side'] = $row['side'];

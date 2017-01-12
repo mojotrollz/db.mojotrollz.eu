@@ -32,11 +32,11 @@ if (!$npc = load_cache(1, intval($id))) {
 		SELECT
 			?#, c.entry, c.name,
 			{
-				l.name_loc' . $_SESSION['locale'] . ' as `name_loc`,
-				l.subname_loc' . $_SESSION['locale'] . ' as `subname_loc`,
+				l.name as `name`,
+				l.subname as `subname`,
 				?,
 			}
-			f.name_loc' . $_SESSION['locale'] . ' as `faction-name`, ft.factionID as `factionID`
+			f.name' . ' as `faction-name`, ft.factionID as `factionID`
 		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate ft, '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions f, ?_creature_template c
 		{
 			LEFT JOIN (?_locales_creature l)
@@ -52,8 +52,8 @@ if (!$npc = load_cache(1, intval($id))) {
 
     if ($row) {
         $npc = $row;
-        $npc['name'] = $row['name_loc'] ? $row['name_loc'] : $row['name'];
-        $npc['subname'] = $row['subname_loc'] ? $row['subname_loc'] : $row['subname'];
+        $npc['name'] = $row['name'];
+        $npc['subname'] = $row['subname'];
         if ($npc['rank'] == 3) {
             $npc['minlevel'] = '??';
             $npc['maxlevel'] = '??';

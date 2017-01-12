@@ -46,7 +46,7 @@ if (!$spell = load_cache(13, intval($id))) {
         // Номер спелла
         $spell['entry'] = $row['spellID'];
         // Имя спелла
-        $spell['name'] = $row['spellname_loc' . $_SESSION['locale']];
+        $spell['name'] = $row['spellname'];
         // Иконка спелла
         //$spell['icon'] = $row['iconname'];
         // Затраты маны на сспелл
@@ -57,12 +57,12 @@ if (!$spell = load_cache(13, intval($id))) {
         // Уровень спелла
         $spell['level'] = $row['levelspell'];
         // Дальность
-        $RangeRow = $DB->selectRow('SELECT rangeMin, rangeMax, name_loc' . $_SESSION['locale'] . ' from '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellrange where rangeID=? limit 1', $row['rangeID']);
+        $RangeRow = $DB->selectRow('SELECT rangeMin, rangeMax, name' . ' from '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellrange where rangeID=? limit 1', $row['rangeID']);
         $spell['range'] = '';
         if (($RangeRow['rangeMin'] != $RangeRow['rangeMax']) and ($RangeRow['rangeMin'] != 0))
             $spell['range'] = $RangeRow['rangeMin'] . '-';
         $spell['range'] .= $RangeRow['rangeMax'];
-        $spell['rangename'] = $RangeRow['name_loc' . $_SESSION['locale']];
+        $spell['rangename'] = $RangeRow['name'];
         // Время каста
         $casttime = $DB->selectCell('SELECT base from '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellcasttimes where id=? limit 1', $row['spellcasttimesID']);
         if ($casttime > 0)
@@ -81,13 +81,13 @@ if (!$spell = load_cache(13, intval($id))) {
         else
             $spell['duration'] = '<span class="q0">n/a</span>';
         // Школа спелла
-        $spell['school'] = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_resistances WHERE id=?d LIMIT 1', $row['resistancesID']);
+        $spell['school'] = $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_resistances WHERE id=?d LIMIT 1', $row['resistancesID']);
         // Тип диспела
         if ($row['dispeltypeID'])
-            $spell['dispel'] = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spelldispeltype WHERE id=?d LIMIT 1', $row['dispeltypeID']);
+            $spell['dispel'] = $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spelldispeltype WHERE id=?d LIMIT 1', $row['dispeltypeID']);
         // Механика спелла
         if ($row['mechanicID'])
-            $spell['mechanic'] = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellmechanic WHERE id=?d LIMIT 1', $row['mechanicID']);
+            $spell['mechanic'] = $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellmechanic WHERE id=?d LIMIT 1', $row['mechanicID']);
 
         // Информация о спелле
         $spell['info'] = allspellsinfo2($row, 2);
@@ -244,7 +244,7 @@ if (!$spell = load_cache(13, intval($id))) {
                 if ($row['effect' . $j . 'triggerspell'] > 0) {
                     $spell['effect'][$i]['spell'] = array();
                     $spell['effect'][$i]['spell']['entry'] = $row['effect' . $j . 'triggerspell'];
-                    $spell['effect'][$i]['spell']['name'] = $DB->selectCell('SELECT spellname_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell WHERE spellID=?d LIMIT 1', $spell['effect'][$i]['spell']['entry']);
+                    $spell['effect'][$i]['spell']['name'] = $DB->selectCell('SELECT spellname' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell WHERE spellID=?d LIMIT 1', $spell['effect'][$i]['spell']['entry']);
                     allspellsinfo($spell['effect'][$i]['spell']['entry']);
                 }
                 $i++;
@@ -259,7 +259,7 @@ if (!$spell = load_cache(13, intval($id))) {
 			SELECT s.*, i.iconname
 			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons i
 			WHERE
-				s.spellname_loc' . $_SESSION['locale'] . ' = ?
+				s.spellname' . ' = ?
 				AND s.spellID <> ?d
 				AND (
 							(s.effect1id=?d AND s.effect1id!=0)
