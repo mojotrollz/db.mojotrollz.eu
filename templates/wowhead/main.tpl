@@ -25,10 +25,6 @@
 		</script>
 		<div class="pad"></div>
 
-		<div id="toplinks" class="toplinks">
-	{if $user}<a href="?user={$user.name}">{$user.name}</a>|<a href="?account=signout">{#Sign_out#}</a>{else}<a href="?account=signin">{#Sign_in#}</a>{/if}|<a href="javascript:;" id="language-changer">{#Language#} <small>&#9660;</small></a>
-		</div>
-
 		<script type="text/javascript">g_initLanguageChanger()</script>
 
 		<div class="pad"></div>
@@ -36,18 +32,6 @@
 		<form method="get" action="?" onsubmit="if(trim(this.elements[0].value) == '') return false">
 			<input type="text" name="search" size="38" id="search-generic" /><input type="submit" value="{#search#}" />
 		</form>
-
-{if $news}
-		<div class="news">
-			<div class="news-list text">
-				<ul>
-{foreach from=$news item=item}
-					<li><div>{$item.text}</div></li>
-{/foreach}
-				</ul>
-			</div>
-		</div>
-{/if}
 
 		<script type="text/javascript">
 			var _ = ge('search-generic');

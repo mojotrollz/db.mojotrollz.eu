@@ -108,8 +108,6 @@ new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comment
 tabsRelated.flush();
 </script>
 
-{include file='bricks/contribute.tpl'}
-
 			</div>
 		</div>
 	</div>

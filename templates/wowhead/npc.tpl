@@ -19,9 +19,9 @@
 						<li><div>{#Classification#}: {$npc.rank}</div></li>
 						<li><div>{#React#}: <span class="q{if $npc.A==-1}7{elseif $npc.A==1}2{else}{/if}">A</span> <span class="q{if $npc.H==-1}7{elseif $npc.H==1}2{else}{/if}">H</span></div></li>
 						<li><div>{#Faction#}: <a href="?faction={$npc.faction_num}">{$npc.faction}</a></div></li>
-						<li><div>{#Health#}: {if $npc.minlevelhealth<>$npc.maxlevelhealth}{$npc.minlevelhealth} - {/if}{$npc.maxlevelhealth}</div></li>
-{if ($npc.minlevelmana or $npc.maxlevelmana)}
-						<li><div>{#Mana#}: {if $npc.minlevelmana<>$npc.maxlevelmana}{$npc.minlevelmana} - {/if}{$npc.maxlevelmana}</div></li>
+						<li><div>{#Health#}: {if $npc.MinLevelHealth<>$npc.MaxLevelHealth}{$npc.MinLevelHealth} - {/if}{$npc.MaxLevelHealth}</div></li>
+{if ($npc.MinLevelMana or $npc.MaxLevelMana)}
+						<li><div>{#Mana#}: {if $npc.MinLevelMana<>$npc.MaxLevelMana}{$npc.MinLevelMana} - {/if}{$npc.MaxLevelMana}</div></li>
 {/if}
 {if ($npc.moneysilver>0) or ($npc.moneygold>0) or ($npc.moneycopper>0)}
 						<li><div>{#Wealth#}:{if ($npc.moneygold>0)}
@@ -32,11 +32,11 @@
  <span class="moneycopper">{$npc.moneycopper}</span>{/if}
 </div></li>
 {/if}
-{if $npc.minmeeledmg > 0 and $npc.maxmeeledmg > 0}
-						<li><div>{#Damage#}: {$npc.minmeeledmg} - {$npc.maxmeeledmg}</div></li>
+{if $npc.MinMeeleDmg > 0 and $npc.MaxMeeleDmg > 0}
+						<li><div>{#Damage#}: {$npc.MinMeeleDmg} - {$npc.MaxMeeleDmg}</div></li>
 {/if} 
-{if $npc.minrangeddmg > 0 and $npc.maxrangeddmg > 0}
-						<li><div>{#Damage#}: {$npc.minrangeddmg} - {$npc.maxrangeddmg}</div></li>
+{if $npc.MinRangedDmg > 0 and $npc.MaxRangedDmg > 0}
+						<li><div>{#Damage#}: {$npc.MinRangedDmg} - {$npc.MaxRangedDmg}</div></li>
 {/if} 
 {if $npc.armor > 0}
 						<li><div>{#Armor#}: {$npc.armor}</div></li>
@@ -87,6 +87,7 @@
 					{/foreach}
 				</span>
 {/strip}
+<br>
 				<div id="mapper-generic"></div>
 				<div class="clear"></div>
 				<script type="text/javascript">
@@ -121,8 +122,6 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
 tabsRelated.flush();
 </script>
-
-			{include file='bricks/contribute.tpl'}
 
 			<div class="clear"></div>
 		</div>

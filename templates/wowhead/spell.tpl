@@ -207,10 +207,9 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($spell.usedbyitem)}{include			file='bricks/item_table.tpl'			id='used-by-item'		tabsid='tabsRelated' data=$spell.usedbyitem			name='usedby'		}{/if}
 {if isset($spell.usedbyitemset)}{include		file='bricks/itemset_table.tpl'			id='itemsets'			tabsid='tabsRelated' data=$spell.usedbyitemset		name='usedby'		}{/if}
 {if isset($spell.seealso)}{include				file='bricks/spell_table.tpl'			id='see-also-ability'	tabsid='tabsRelated' data=$spell.seealso			name='seealso'		}{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+//new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
 tabsRelated.flush();
 </script>
-		{include file='bricks/contribute.tpl'}
 		<div class="clear"></div>
 	</div>
 </div>

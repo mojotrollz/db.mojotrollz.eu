@@ -161,7 +161,7 @@ foreach ($rows as $numRow => $row)
 $rows = $DB->select('
 		SELECT *
 		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_itemset
-		WHERE name_loc' . $_SESSION['locale'] . ' LIKE ?
+		WHERE name' . ' LIKE ?
 	', $nsearch
 );
 foreach ($rows as $numRow => $row)
@@ -172,7 +172,7 @@ $rows = $DB->select('
 		SELECT ?#, spellID
 		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons i
 		WHERE
-			s.spellname_loc' . $_SESSION['locale'] . ' like ?
+			s.spellname' . ' like ?
 			AND i.id = s.spellicon
 	', $spell_cols[2], $nsearch
 );

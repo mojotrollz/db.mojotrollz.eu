@@ -83,7 +83,7 @@ if (!$npc = load_cache(1, intval($id))) {
         $npc['faction_num'] = $row['factionID'];
         $npc['faction'] = $row['faction-name'];
         // Деньги
-        $money = ($row['mingold'] + $row['maxgold']) / 2;
+        $money = ($row['MinLootGold'] + $row['MaxLootGold']) / 2;
         $npc['moneygold'] = floor($money / 10000);
         $npc['moneysilver'] = floor(($money - ($npc['moneygold'] * 10000)) / 100);
         $npc['moneycopper'] = floor($money - ($npc['moneygold'] * 10000) - ($npc['moneysilver'] * 100));

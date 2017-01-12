@@ -435,8 +435,6 @@
 				tabsRelated.flush();
 			</script>
 
-			{include file='bricks/contribute.tpl'}
-
 			</div>
 		</div>
 	</div>

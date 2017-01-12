@@ -44,8 +44,8 @@ if (!$item = load_cache(5, $id)) {
             $rows = $DB->select('
 				SELECT c.?#, c.entry
 				{
-					, l.name_loc?d as `name_loc`
-					, l.subname_loc' . $_SESSION['locale'] . ' as `subname_loc`
+					, l.name?d as `name`
+					, l.subname' . ' as `subname`
 				}
 				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 				{ LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ? }
