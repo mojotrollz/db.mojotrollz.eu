@@ -496,7 +496,7 @@ function iteminfo2(&$Row, $level=0) {
     global $object_cols;
 
     if (!isset($Row['entry']))
-        return;
+        return array();
 
     $item = array();
     // Номер вещи

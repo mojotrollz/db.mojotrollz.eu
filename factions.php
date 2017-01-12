@@ -29,7 +29,7 @@ if (!$factions = load_cache(19, 'x')) {
         $factions[$numRow] = array();
         $factions[$numRow]['entry'] = $row['factionID'];
         if ($row['team'] != 0)
-            $factions[$numRow]['group'] = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'?_aowow_factions WHERE factionID=? LIMIT 1', $row['team']);
+            $factions[$numRow]['group'] = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=? LIMIT 1', $row['team']);
         if ($row['side'])
             $factions[$numRow]['side'] = $row['side'];
         $factions[$numRow]['name'] = $row['name'];

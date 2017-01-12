@@ -57,7 +57,7 @@ if (!$faction = load_cache(18, intval($id))) {
         // Итемы с requiredreputationfaction
         $item_rows = $DB->select('
 			SELECT ?#, entry
-			FROM ?_item_template i, '.$UDWBaseconf['aowow']['db'].'?_aowow_icons a
+			FROM ?_item_template i, '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons a
 			WHERE
 				i.RequiredReputationFaction=?d
 				AND a.id=i.displayid

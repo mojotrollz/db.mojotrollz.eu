@@ -48,7 +48,7 @@ if (!$object = load_cache(3, intval($id))) {
 
     // Заканчивают квесты...
     $rows_qe = $DB->select('
-		SELECT i.?#
+		SELECT ?#
 		FROM ?_gameobject_questrelation i, ?_quest_template q
 		WHERE
 			i.id = ?d

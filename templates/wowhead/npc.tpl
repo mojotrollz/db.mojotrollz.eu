@@ -19,9 +19,9 @@
 						<li><div>{#Classification#}: {$npc.rank}</div></li>
 						<li><div>{#React#}: <span class="q{if $npc.A==-1}7{elseif $npc.A==1}2{else}{/if}">A</span> <span class="q{if $npc.H==-1}7{elseif $npc.H==1}2{else}{/if}">H</span></div></li>
 						<li><div>{#Faction#}: <a href="?faction={$npc.faction_num}">{$npc.faction}</a></div></li>
-						<li><div>{#Health#}: {if $npc.minhealth<>$npc.maxhealth}{$npc.minhealth} - {/if}{$npc.maxhealth}</div></li>
-{if ($npc.minmana or $npc.maxmana)}
-						<li><div>{#Mana#}: {if $npc.minmana<>$npc.maxmana}{$npc.minmana} - {/if}{$npc.maxmana}</div></li>
+						<li><div>{#Health#}: {if $npc.minlevelhealth<>$npc.maxlevelhealth}{$npc.minlevelhealth} - {/if}{$npc.maxlevelhealth}</div></li>
+{if ($npc.minlevelmana or $npc.maxlevelmana)}
+						<li><div>{#Mana#}: {if $npc.minlevelmana<>$npc.maxlevelmana}{$npc.minlevelmana} - {/if}{$npc.maxlevelmana}</div></li>
 {/if}
 {if ($npc.moneysilver>0) or ($npc.moneygold>0) or ($npc.moneycopper>0)}
 						<li><div>{#Wealth#}:{if ($npc.moneygold>0)}
@@ -32,8 +32,11 @@
  <span class="moneycopper">{$npc.moneycopper}</span>{/if}
 </div></li>
 {/if}
-{if $npc.mindmg > 0 and $npc.maxdmg > 0}
-						<li><div>{#Damage#}: {$npc.mindmg} - {$npc.maxdmg}</div></li>
+{if $npc.minmeeledmg > 0 and $npc.maxmeeledmg > 0}
+						<li><div>{#Damage#}: {$npc.minmeeledmg} - {$npc.maxmeeledmg}</div></li>
+{/if} 
+{if $npc.minrangeddmg > 0 and $npc.maxrangeddmg > 0}
+						<li><div>{#Damage#}: {$npc.minrangeddmg} - {$npc.maxrangeddmg}</div></li>
 {/if} 
 {if $npc.armor > 0}
 						<li><div>{#Armor#}: {$npc.armor}</div></li>
