@@ -1,0 +1,36 @@
+Order Deny,Allow
+<FilesMatch "\.(conf|php|in)$">
+    Deny from all
+</FilesMatch>
+<FilesMatch "^(index)\.php$">
+    Allow from all
+</FilesMatch>
+
+<Files "aowow">
+    ForceType application/x-httpd-php
+</Files>
+
+# Block view of some folders
+Options -Indexes
+DirectoryIndex index.php
+
+# Support for UTF8
+AddDefaultCharset utf8
+<IfModule mod_charset.c>
+    CharsetDisable on
+    CharsetRecodeMultipartForms Off
+</IfModule>
+
+# 5MB should be enough for the largest screenshots in the land (cannot be set in config)
+    php_value       upload_max_filesize                         5M
+
+RewriteEngine on
+# RewriteBase /~user/localPath/     # enable if the rules do not work, when they should
+
+# Mapper-Helper: If you cant provide maps for all locales, redirect the browser
+# RewriteRule ^(.*/?)static/images/wow/maps/(frfr|dede|eses|ruru)/(.*)$ $1static/images/wow/maps/enus/$3 [NC]
+
+# accept flattened urls | NYI - need more work :x
+#   RewriteRule     ^([a-z0-9\-]+)$                             ?$1       [NC]      # /items                 => ?items
+#   RewriteRule     ^([a-z0-9\-]+)=([^?&]*)$                    ?$1=$2    [NC]      # /items=4.1             => ?items=4.1
+#   RewriteRule     ^([a-z0-9\-]+)=([^?&]*)[&?](.*)$            ?$1=$2&$3 [NC]      # /items=4.1?filter=sl=7 => ?items=4.1&filter=sl=7
