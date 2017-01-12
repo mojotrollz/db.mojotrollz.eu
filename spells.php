@@ -31,7 +31,7 @@ if (!$spells = load_cache(15, $cache_str)) {
         // Классовые
         $rows = $DB->select('
 				SELECT ?#, s.`spellID`, sk.skillID
-				FROM ?_aowow_spell s, ?_aowow_skill_line_ability sla, ?_aowow_spellicons i, ?_aowow_skill sk
+				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill_line_ability sla, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons i, '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill sk
 				WHERE
 					s.spellID = sla.spellID
 					AND s.levelspell >= 1
@@ -70,7 +70,7 @@ if (!$spells = load_cache(15, $cache_str)) {
 			SELECT
 				?#, `s`.`spellID`,
 				sla.skillID, sla.min_value, sla.max_value
-			FROM ?_aowow_spell s, ?_aowow_skill_line_ability sla, ?_aowow_spellicons i, ?_aowow_skill sk
+			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill_line_ability sla, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons i, '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill sk
 			WHERE
 				s.spellID = sla.spellID
 				AND i.id=s.spellicon
@@ -89,7 +89,7 @@ if (!$spells = load_cache(15, $cache_str)) {
         $rows = $DB->select('
 				SELECT
 					?#, `s`.`spellID`, sk.skillID
-				FROM ?_aowow_spell s, ?_aowow_skill_line_ability sla, ?_aowow_spellicons i, ?_aowow_skill sk
+				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill_line_ability sla, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons i, '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill sk
 				WHERE
 					s.spellID = sla.spellID
 					AND s.levelspell > 0
@@ -108,9 +108,9 @@ if (!$spells = load_cache(15, $cache_str)) {
         $rows = $DB->select('
 			SELECT
 				?#, `s`.`spellID`
-			FROM ?_aowow_spell s, ?_aowow_spellicons i
+			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons i
 			WHERE
-				s.spellID IN (SELECT spellID FROM ?_aowow_skill_line_ability WHERE racemask>0)
+				s.spellID IN (SELECT spellID FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill_line_ability WHERE racemask>0)
 				AND i.id=s.spellicon
 			{LIMIT ?d}
 			', $spell_cols[2], ($UDWBaseconf['limit'] != 0) ? $UDWBaseconf['limit'] : DBSIMPLE_SKIP
@@ -124,7 +124,7 @@ if (!$spells = load_cache(15, $cache_str)) {
         $rows = $DB->select('
 			SELECT
 				?#, `s`.`spellID`
-			FROM ?_aowow_spell s, ?_aowow_spellicons i
+			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons i
 			WHERE
 				i.id=s.spellicon
 			{LIMIT ?d}

@@ -59,7 +59,7 @@ function creatureinfo($id) {
 			, l.subname_loc' . $_SESSION['locale'] . ' as `subname_loc`
 			, ?
 		}
-		FROM ?_aowow_factiontemplate, ?_creature_template c
+		FROM '.'host_mojotrollz_aowow'.'.?_aowow_factiontemplate, ?_creature_template c
 		{
 			LEFT JOIN (?_locales_creature l)
 			ON l.entry=c.entry AND ?

@@ -368,7 +368,7 @@ function objectinfo2(&$Row, $level=0) {
         if ($object['lockid']) {
             $lock_row = $DB->selectRow('
 				SELECT *
-				FROM ?_aowow_lock
+				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_lock
 				WHERE lockID=?d
 				LIMIT 1
 				', $object['lockid']

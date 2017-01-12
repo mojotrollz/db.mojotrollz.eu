@@ -132,7 +132,8 @@ function b_type($type, $value) {
  */
 function req_spell($spell_id) {
     global $aDB;
-    return $aDB->selectCell('SELECT spellname_loc' . $_SESSION['locale'] . ' FROM ?_aowow_spell WHERE spellID=?d LIMIT 1', $spell_id);
+    //TODO $UDWBaseconf['aowow']['db']
+    return $aDB->selectCell('SELECT spellname_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_spell WHERE spellID=?d LIMIT 1', $spell_id);
 }
 
 /**
@@ -177,7 +178,7 @@ function spell_to_bonus($spell_id, $trigger) {
 function allitemsinfo2(&$Row, $level=0) {
     // Empty string
     if (!isset($Row['entry']))
-        return;
+        return array();
     // Global array of information
     global $allitems;
     //  Number of the next element
@@ -241,6 +242,7 @@ function allitemsinfo($id, $level=0) {
     if (isset($allitems[$id])) {
         return $allitems[$id];
     } else {
+        //TODO $UDWBaseconf['aowow']['db']
         $row = $DB->selectRow('
 			SELECT i.?#
 			{
@@ -248,7 +250,7 @@ function allitemsinfo($id, $level=0) {
 				, l.description_loc' . $_SESSION['locale'] . ' as `description_loc`
 				, ?
 			}
-			FROM ?_aowow_icons, ?_item_template i
+			FROM '.'host_mojotrollz_aowow'.'.?_aowow_icons, ?_item_template i
 			{
 				LEFT JOIN (?_locales_item l)
 				ON l.entry=i.entry AND ?
@@ -300,7 +302,8 @@ function render_item_tooltip(&$Row) {
 
     // Локация, для которой предназначен этот предмет
     if ($Row['Map'])
-        $x .= '<br />' . $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM ?_aowow_zones WHERE mapid=?d LIMIT 1', $Row['Map']);;
+        //TODO $UDWBaseconf['aowow']['db']
+        $x .= '<br />' . $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_zones WHERE mapid=?d LIMIT 1', $Row['Map']);;
 
     // Теперь в зависимости от типа предмета
     if ($Row['ContainerSlots'] > 1)
@@ -380,7 +383,8 @@ function render_item_tooltip(&$Row) {
 
     // Требуемый скилл (755 - Jewecrafting)
     if (($Row['RequiredSkill']) and ($Row['RequiredSkill'] != 755)) {
-        $x .= LOCALE_REQUIRES . ' ' . $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM ?_aowow_skill WHERE skillID=?d LIMIT 1', $Row['RequiredSkill']);
+        //TODO $UDWBaseconf['aowow']['db']
+        $x .= LOCALE_REQUIRES . ' ' . $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_skill WHERE skillID=?d LIMIT 1', $Row['RequiredSkill']);
         if ($Row['RequiredSkillRank'])
             $x .= ' (' . $Row['RequiredSkillRank'] . ')';
         $x .= '<br />';
@@ -427,7 +431,8 @@ function render_item_tooltip(&$Row) {
 // Item Set
     // Временное хранилище всех вещей;
     $x_tmp = '';
-    $row = $DB->selectRow('SELECT ?# FROM ?_aowow_itemset WHERE (item1=?d or item2=?d or item3=?d or item4=?d or item5=?d or item6=?d or item7=?d or item8=?d or item9=?d or item10=?d) LIMIT 1', $itemset_col[1], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry']);
+    //TODO $UDWBaseconf['aowow']['db']
+    $row = $DB->selectRow('SELECT ?# FROM '.'host_mojotrollz_aowow'.'.?_aowow_itemset WHERE (item1=?d or item2=?d or item3=?d or item4=?d or item5=?d or item6=?d or item7=?d or item8=?d or item9=?d or item10=?d) LIMIT 1', $itemset_col[1], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry']);
     if ($row) {
         $num = 0; // Кол-во вещей в наборе
         for ($i = 1; $i <= 10; $i++) {
@@ -440,7 +445,8 @@ function render_item_tooltip(&$Row) {
         $x .= '<span class="q"><a href="?itemset=' . $row['itemsetID'] . '" class="q">' . $row['name_loc' . $_SESSION['locale']] . '</a> (0/' . $num . ')</span>';
         // Если требуется скилл
         if ($row['skillID']) {
-            $name = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM ?_aowow_skill WHERE skillID=?d LIMIT 1', $row['skillID']);
+            //TODO $UDWBaseconf['aowow']['db']
+            $name = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_skill WHERE skillID=?d LIMIT 1', $row['skillID']);
             $x .= LOCALE_REQUIRES . ' <a href="?spells=11.' . $row['skillID'] . '" class="q1">' . $name . '</a>';
             if ($row['skilllevel'])
                 $x .= ' (' . $row['skilllevel'] . ')';
@@ -579,9 +585,10 @@ function iteminfo2(&$Row, $level=0) {
         }
         // Открывает:
         // Тип замков, для которых этот предмет является ключем:
+        //TODO $UDWBaseconf['aowow']['db']
         $locks_row = $DB->selectCol('
 			SELECT lockID
-			FROM ?_aowow_lock
+			FROM '.'host_mojotrollz_aowow'.'.?_aowow_lock
 			WHERE
 				(type1=1 AND lockproperties1=?d) OR
 				(type2=1 AND lockproperties2=?d) OR
@@ -621,6 +628,7 @@ function iteminfo2(&$Row, $level=0) {
 function iteminfo($id, $level=0) {
     global $item_cols;
     global $DB;
+    //TODO $UDWBaseconf['aowow']['db']
     $row = $DB->selectRow('
 		SELECT i.?#, i.entry, maxcount
 		{
@@ -628,7 +636,7 @@ function iteminfo($id, $level=0) {
 			, l.description_loc' . $_SESSION['locale'] . ' as `description_loc`
 			, ?
 		}
-		FROM ?_aowow_icons, ?_item_template i
+		FROM '.'host_mojotrollz_aowow'.'.?_aowow_icons, ?_item_template i
 		{ LEFT JOIN (?_locales_item l) ON l.entry=i.entry AND ? }
 		WHERE
 			(i.entry=?d and id=displayid)

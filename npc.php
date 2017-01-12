@@ -37,7 +37,7 @@ if (!$npc = load_cache(1, intval($id))) {
 				?,
 			}
 			f.name_loc' . $_SESSION['locale'] . ' as `faction-name`, ft.factionID as `factionID`
-		FROM ?_aowow_factiontemplate ft, ?_aowow_factions f, ?_creature_template c
+		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate ft, '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions f, ?_creature_template c
 		{
 			LEFT JOIN (?_locales_creature l)
 			ON l.entry=c.entry AND ?
@@ -140,9 +140,9 @@ if (!$npc = load_cache(1, intval($id))) {
                 for ($k = 1; $k <= 3; $k++) {
                     $spellrow = $DB->selectRow('
 						SELECT ?#, spellID
-						FROM ?_aowow_spell, ?_aowow_spellicons
+						FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons
 						WHERE
-							spellID=(SELECT effect' . $k . 'triggerspell FROM ?_aowow_spell WHERE spellID=?d AND (effect' . $k . 'id IN (36,57)))
+							spellID=(SELECT effect' . $k . 'triggerspell FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell WHERE spellID=?d AND (effect' . $k . 'id IN (36,57)))
 							AND id=spellicon
 						LIMIT 1
 						', $spell_cols[2], $row['Spell' . $j]
@@ -159,7 +159,7 @@ if (!$npc = load_cache(1, intval($id))) {
     // Если это просто тренер
     $teachspells = $DB->select('
 		SELECT ?#, spellID
-		FROM ?_npc_trainer, ?_aowow_spell, ?_aowow_spellicons
+		FROM ?_npc_trainer, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons
 		WHERE
 			entry=?d
 			AND spellID=Spell
@@ -181,7 +181,7 @@ if (!$npc = load_cache(1, intval($id))) {
     $rows_s = $DB->select('
 		SELECT ?#, i.entry, i.maxcount, n.`maxcount` as `drop-maxcount`
 			{, l.name_loc?d AS `name_loc`}
-		FROM ?_npc_vendor n, ?_aowow_icons, ?_item_template i
+		FROM ?_npc_vendor n, '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons, ?_item_template i
 			{LEFT JOIN (?_locales_item l) ON l.entry=i.entry AND ?d}
 		WHERE
 			n.entry=?
@@ -198,7 +198,7 @@ if (!$npc = load_cache(1, intval($id))) {
             $npc['sells'][$numRow]['cost'] = array();
             /* if ($row['ExtendedCost']) [NOTE] overwrite with honor points? 
               {
-              $extcost = $DB->selectRow('SELECT * FROM ?_aowow_item_extended_cost WHERE extendedcostID=?d LIMIT 1', $row['ExtendedCost']);
+              $extcost = $DB->selectRow('SELECT * FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_item_extended_cost WHERE extendedcostID=?d LIMIT 1', $row['ExtendedCost']);
               if ($extcost['reqhonorpoints']>0)
               $npc['sells'][$numRow]['cost']['honor'] = (($npc['A']==1)? 1: -1) * $extcost['reqhonorpoints'];
               if ($extcost['reqarenapoints']>0)
@@ -234,10 +234,10 @@ if (!$npc = load_cache(1, intval($id))) {
 
     // Начиниают квесты...
     $rows_qs = $DB->select('
-		SELECT c.?#
-		FROM ?_quest_relations c, ?_quest_template q
+		SELECT ?#
+		FROM ?_creature_questrelation c, ?_quest_template q
 		WHERE
-			c.entry=?
+			c.id=?
 			AND q.entry=c.quest
 		', $quest_cols[2], $id
     );
@@ -251,10 +251,10 @@ if (!$npc = load_cache(1, intval($id))) {
 
     // Заканчивают квесты...
     $rows_qe = $DB->select('
-		SELECT c.?#
-		FROM ?_quest_relations c, ?_quest_template q
+		SELECT ?#
+		FROM ?_creature_questrelation c, ?_quest_template q
 		WHERE
-			c.entry=?
+			c.id=?
 			AND q.entry=c.quest
 		', $quest_cols[2], $id
     );

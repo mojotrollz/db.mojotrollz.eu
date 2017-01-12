@@ -32,7 +32,7 @@ if (!$faction = load_cache(18, intval($id))) {
 
     $row = $DB->selectRow('
 			SELECT factionID, name_loc' . $_SESSION['locale'] . ', description1_loc' . $_SESSION['locale'] . ', description2_loc' . $_SESSION['locale'] . ', team, side
-			FROM ?_aowow_factions
+			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions
 			WHERE factionID=?d
 			LIMIT 1
 		', $id
@@ -49,7 +49,7 @@ if (!$faction = load_cache(18, intval($id))) {
         $faction['description2'] = $row['description2_loc' . $_SESSION['locale']];
         // Команда/Группа фракции
         if ($row['team'] != 0)
-            $faction['group'] = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM ?_aowow_factions WHERE factionID=?d LIMIT 1', $row['team']);
+            $faction['group'] = $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $row['team']);
         // Альянс(1)/Орда(2)
         if ($row['side'] != 0)
             $faction['side'] = $row['side'];
@@ -57,7 +57,7 @@ if (!$faction = load_cache(18, intval($id))) {
         // Итемы с requiredreputationfaction
         $item_rows = $DB->select('
 			SELECT ?#, entry
-			FROM ?_item_template i, ?_aowow_icons a
+			FROM ?_item_template i, '.$UDWBaseconf['aowow']['db'].'?_aowow_icons a
 			WHERE
 				i.RequiredReputationFaction=?d
 				AND a.id=i.displayid
@@ -73,9 +73,9 @@ if (!$faction = load_cache(18, intval($id))) {
         // Персонажи, состоящие во фракции
         $creature_rows = $DB->select('
 			SELECT ?#, entry
-			FROM ?_creature_template, ?_aowow_factiontemplate
+			FROM ?_creature_template, '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate
 			WHERE
-				FactionAlliance IN (SELECT factiontemplateID FROM ?_aowow_factiontemplate WHERE factionID=?d)
+				FactionAlliance IN (SELECT factiontemplateID FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate WHERE factionID=?d)
 				AND factiontemplateID=FactionAlliance
 			', $npc_cols[0], $id
         );

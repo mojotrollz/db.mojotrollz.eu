@@ -430,7 +430,7 @@ function GetQuestInfo(&$data, $dataflag = QUEST_DATAFLAG_MINIMUM) {
         if ($data['SpecialFlags'] & QUEST_SPECIALFLAGS_REPEATABLE)
             $data['Repeatable'] = true;
         if ($data['CharTitleId'] > 0)
-            $data['titlereward'] = $DB->selectCell('SELECT name FROM ?_aowow_char_titles WHERE id=?d LIMIT 1', $row['CharTitleId']);
+            $data['titlereward'] = $DB->selectCell('SELECT name FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_char_titles WHERE id=?d LIMIT 1', $row['CharTitleId']);
     }
 
     // Награды и задания
@@ -441,12 +441,12 @@ function GetQuestInfo(&$data, $dataflag = QUEST_DATAFLAG_MINIMUM) {
         for ($j = 0; $j <= 6; ++$j)
             if (($data['RewChoiceItemId' . $j] != 0) and ($data['RewChoiceItemCount' . $j] != 0))
                 $data['itemchoices'][] = array_merge(
-                        array(allitemsinfo($data['RewChoiceItemId' . $j], 0)), array('count' => $data['RewChoiceItemCount' . $j])
+                        allitemsinfo($data['RewChoiceItemId' . $j], 0), array('count' => $data['RewChoiceItemCount' . $j])
                 );
         for ($j = 0; $j <= 4; ++$j)
             if (($data['RewItemId' . $j] != 0) and ($data['RewItemCount' . $j] != 0))
                 $data['itemrewards'][] = array_merge(
-                        array(allitemsinfo($data['RewItemId' . $j], 0)), array('count' => $data['RewItemCount' . $j])
+                        allitemsinfo($data['RewItemId' . $j], 0), array('count' => $data['RewItemCount' . $j])
                 );
         // Вознаграждение репутацией
         for ($j = 1; $j <= 5; $j++)

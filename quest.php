@@ -208,7 +208,7 @@ if (!$quest = load_cache(10, intval($id))) {
 
         // TODO: skill localization
         $quest['reqskill'] = array(
-            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM ?_aowow_skill WHERE skillID=?d LIMIT 1', $quest['SkillOrClass']),
+            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill WHERE skillID=?d LIMIT 1', $quest['SkillOrClass']),
             'value' => $quest['RequiredSkillValue']
         );
     } elseif ($quest['SkillOrClass'] < 0)
@@ -218,13 +218,13 @@ if (!$quest = load_cache(10, intval($id))) {
     // Требуемые отношения с фракциями, что бы начать квест
     if ($quest['RequiredMinRepFaction'] && $quest['RequiredMinRepValue'])
         $quest['RequiredMinRep'] = array(
-            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM ?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RequiredMinRepFaction']),
+            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RequiredMinRepFaction']),
             'entry' => $quest['RequiredMinRepFaction'],
             'value' => $reputations[$quest['RequiredMinRepValue']]
         );
     if ($quest['RequiredMaxRepFaction'] && $quest['RequiredMaxRepValue'])
         $quest['RequiredMaxRep'] = array(
-            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM ?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RequiredMaxRepFaction']),
+            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RequiredMaxRepFaction']),
             'entry' => $quest['RequiredMaxRepFaction'],
             'value' => $reputations[$quest['RequiredMaxRepValue']]
         );
@@ -235,7 +235,7 @@ if (!$quest = load_cache(10, intval($id))) {
     if ($quest['SrcSpell']) {
         $tmp = $DB->selectRow('
 			SELECT ?#, s.spellname_loc' . $_SESSION['locale'] . '
-			FROM ?_aowow_spell s, ?_aowow_spellicons si
+			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons si
 			WHERE
 				s.spellID=?d
 				AND si.id=s.spellicon
@@ -254,7 +254,7 @@ if (!$quest = load_cache(10, intval($id))) {
     if ($quest['RewSpellCast'] > 0 || $quest['RewSpell'] > 0) {
         $tmp = $DB->SelectRow('
 			SELECT ?#, s.spellname_loc' . $_SESSION['locale'] . '
-			FROM ?_aowow_spell s, ?_aowow_spellicons si
+			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons si
 			WHERE
 				s.spellID=?d
 				AND si.id=s.spellicon
@@ -292,7 +292,7 @@ if (!$quest = load_cache(10, intval($id))) {
             // Спелл
             if ($quest['ReqSpellCast' . $i])
                 $quest['coreqs'][$i]['spell'] = array(
-                    'name' => $DB->selectCell('SELECT spellname_loc' . $_SESSION['locale'] . ' FROM ?_aowow_spell WHERE spellid=?d LIMIT 1', $quest['ReqSpellCast' . $i]),
+                    'name' => $DB->selectCell('SELECT spellname_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell WHERE spellid=?d LIMIT 1', $quest['ReqSpellCast' . $i]),
                     'entry' => $quest['ReqSpellCast' . $i]
                 );
         }
@@ -312,7 +312,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // Фракции необходимые для квеста
     if ($quest['RepObjectiveFaction'] > 0 && $quest['RepObjectiveValue'] > 0) {
         $quest['factionreq'] = array(
-            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM ?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RepObjectiveFaction']),
+            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RepObjectiveFaction']),
             'entry' => $quest['RepObjectiveFaction'],
             'value' => $reputations[$quest['RepObjectiveValue']]
         );
@@ -325,11 +325,11 @@ if (!$quest = load_cache(10, intval($id))) {
     $rows = $DB->select('
 		SELECT c.entry, c.name, A, H
 			{, l.name_loc?d as `name_loc`}
-		FROM ?quest_relations q, ?_aowow_factiontemplate, ?_creature_template c
+		FROM ?_creature_questrelation q, '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 			{LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ?}
 		WHERE
 			q.quest=?d
-			AND c.entry=q.entry
+			AND c.entry=q.id
 			AND factiontemplateID=c.FactionAlliance
 		', ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $quest['entry'], $quest['entry']
     );
@@ -350,11 +350,11 @@ if (!$quest = load_cache(10, intval($id))) {
     $rows = $DB->select('
 		SELECT g.entry, g.name
 			{, l.name_loc?d as `name_loc`}
-		FROM ?_quest_relations q, ?_gameobject_template g
+		FROM ?_gameobject_questrelation q, ?_gameobject_template g
 			{LEFT JOIN (?_locales_gameobject l) ON l.entry = g.entry AND ?}
 		WHERE
 			q.quest=?d
-			AND g.entry=q.entry
+			AND g.entry=q.id
 		', ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $quest['entry']
     );
     if ($rows) {
@@ -370,7 +370,7 @@ if (!$quest = load_cache(10, intval($id))) {
     $rows = $DB->select('
 		SELECT i.name, i.entry, i.quality, LOWER(a.iconname) AS iconname
 			{, l.name_loc?d as `name_loc`}
-		FROM ?_aowow_icons a, ?_item_template i
+		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons a, ?_item_template i
 			{LEFT JOIN (?_locales_item l) ON l.entry=i.entry AND ?}
 		WHERE
 			startquest = ?d
@@ -391,11 +391,11 @@ if (!$quest = load_cache(10, intval($id))) {
     $rows = $DB->select('
 		SELECT c.entry, c.name, A, H
 			{, l.name_loc?d as `name_loc`}
-		FROM ?_quest_relations q, ?_aowow_factiontemplate, ?_creature_template c
+		FROM ?_creature_questrelation q, '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 			{LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ?}
 		WHERE
 			q.quest=?d
-			AND c.entry=q.entry
+			AND c.entry=q.id
 			AND factiontemplateID=c.FactionAlliance
 		', ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $quest['entry']
     );
@@ -416,11 +416,11 @@ if (!$quest = load_cache(10, intval($id))) {
     $rows = $DB->select('
 		SELECT g.entry, g.name
 			{, l.name_loc?d as `name_loc`}
-		FROM ?_quest_relations q, ?_gameobject_template g
+		FROM ?_gameobject_questrelation q, ?_gameobject_template g
 			{LEFT JOIN (?_locales_gameobject l) ON l.entry = g.entry AND ?}
 		WHERE
 			q.quest=?d
-			AND g.entry=q.entry
+			AND g.entry=q.id
 		', ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $quest['entry']
     );
     if ($rows) {

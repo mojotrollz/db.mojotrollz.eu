@@ -21,10 +21,10 @@ require_once('includes/game.php');
 function getcomments($type, $typeid) {
     global $DB;
     global $rDB;
-
+    //TODO $UDWBaseconf['aowow']['db']
     $rows = $DB->select('
 		SELECT id, userid, post_date, commentbody, replyto
-		FROM ?_aowow_comments
+		FROM '.'host_mojotrollz_aowow'.'.?_aowow_comments
 		WHERE type=? AND typeid=?
 		ORDER BY replyto, post_date
 		', $type, $typeid
@@ -46,7 +46,7 @@ function getcomments($type, $typeid) {
             $comments[$i]['indent'] = 1;
 
         $comments[$i]['raters'] = array();
-        $comments[$i]['raters'] = $DB->select('SELECT userid, rate FROM ?_aowow_comments_rates WHERE commentid=?d', $comments[$i]['id']);
+        $comments[$i]['raters'] = $DB->select('SELECT userid, rate FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_comments_rates WHERE commentid=?d', $comments[$i]['id']);
         $comments[$i]['rating'] = sum_subarrays_by_key($comments[$i]['raters'], 'rate');
         $comments[$i]['purged'] = ($comments[$i]['rating'] <= -50) ? 1 : 0;
         $comments[$i]['deleted'] = 0;

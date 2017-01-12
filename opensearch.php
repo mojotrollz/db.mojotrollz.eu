@@ -54,7 +54,7 @@ function SideByRace($race) {
 // Ищем вещи:
 $rows = $DB->select('
 	SELECT i.entry, ?#, iconname, quality
-	FROM ?_aowow_icons a, ?_item_template i{, ?# l}
+	FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons a, ?_item_template i{, ?# l}
 	WHERE
 		?# LIKE ?
 		AND a.id = i.displayid
