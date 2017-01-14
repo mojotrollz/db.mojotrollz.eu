@@ -43,7 +43,7 @@
 
 				<div class="text">
 
-					<a href="http://www.wowhead.com/?{$query}" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
+					<a target="blank" href="http://www.wowhead.com/?{$query}" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
 					<h1>{$item.name}</h1>
 
 					<div id="icon{$item.entry}-generic" style="float: left"></div>
@@ -89,7 +89,7 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($item.createdfrom)}{include			file='bricks/spell_table.tpl'			id='created-by'				tabsid='tabsRelated' data=$item.createdfrom			name='createdby'		}{/if}
 {if isset($item.disenchanting)}{include			file='bricks/item_table.tpl'			id='disenchanting'			tabsid='tabsRelated' data=$item.disenchanting		name='disenchanting'	}{/if}
 {if isset($item.disenchantedfrom)}{include		file='bricks/item_table.tpl'			id='disenchanting'			tabsid='tabsRelated' data=$item.disenchantedfrom	name='disenchantedfrom'	}{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+//new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
 tabsRelated.flush();
 </script>
 

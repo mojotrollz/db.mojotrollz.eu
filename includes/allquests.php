@@ -337,6 +337,7 @@ function GetDBQuestInfo($id, $dataflag = QUEST_DATAFLAG_MINIMUM) {
  */
 function GetQuestInfo(&$data, $dataflag = QUEST_DATAFLAG_MINIMUM) {
     global $DB, $quest_class;
+    global $UDWBaseconf;
     /* else
       {
       $data = $DB->selectRow('

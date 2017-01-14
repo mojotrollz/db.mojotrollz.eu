@@ -46,7 +46,7 @@
 			</table>
 
 			<div class="text">
-				<a href="http://www.wowhead.com/?{$query}" target="_blank" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
+				<a target="blank" href="http://www.wowhead.com/?{$query}" target="_blank" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
 				<h1>{$npc.name}{if $npc.subname} &lt;{$npc.subname}&gt;{/if}</h1>
 				
 {if $zonedata}
@@ -119,7 +119,7 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($npc.abilities)}{include			file='bricks/spell_table.tpl'	id='abilities'				name='abilities'			tabsid='tabsRelated' data=$npc.abilities}{/if}
 {if isset($npc.objectiveof)}{include		file='bricks/quest_table.tpl'	id='objective-of'			name='objectiveof'		tabsid='tabsRelated' data=$npc.objectiveof}{/if}
 {if isset($npc.teaches)}{include				file='bricks/spell_table.tpl'	id='teaches-ability'	name='teaches'				tabsid='tabsRelated' data=$npc.teaches}{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+//new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
 tabsRelated.flush();
 </script>
 

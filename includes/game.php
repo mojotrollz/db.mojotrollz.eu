@@ -157,6 +157,31 @@ function classes($class) {
         return $tmp;
 }
 
+function classes_array($class) {
+    $tmp = array();
+    if($class == 1503 || $class == -1 || $class == 32767 || $class == 1535){ //ALL
+        return NULL;}
+    if ($class & CLASS_WARRIOR)
+        $tmp[] = 1;
+    if ($class & CLASS_PALADIN)
+        $tmp[] = 2;
+    if ($class & CLASS_HUNTER)
+        $tmp[] = 3;
+    if ($class & CLASS_ROGUE)
+        $tmp[] = 4;
+    if ($class & CLASS_PRIEST)
+        $tmp[] = 5;
+    if ($class & CLASS_SHAMAN)
+        $tmp[] = 7;
+    if ($class & CLASS_MAGE)
+        $tmp[] = 8;
+    if ($class & CLASS_WARLOCK)
+        $tmp[] = 9;
+    if ($class & CLASS_DRUID)
+        $tmp[] = 11;
+    return $tmp;
+}
+
 /**
  * Determine race
  * 
@@ -243,8 +268,10 @@ function coord_db2wow($mapid, $x, $y, $global) {
     global $map_images;
     // Подключение к базе
     global $DB;
+    
+    global $UDWBaseconf;
 
-    $rows = $DB->select('SELECT * FROM '.'host_mojotrollz_aowow'.'.?_aowow_zones WHERE (mapID=? and x_min<? and x_max>? and y_min<? and y_max>?)', $mapid, $x, $x, $y, $y);
+    $rows = $DB->select('SELECT * FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_zones WHERE (mapID=? and x_min<? and x_max>? and y_min<? and y_max>?)', $mapid, $x, $x, $y, $y);
 
     foreach ($rows as $numRow => $row) {
         // Сохраяняем имя карты и координаты
@@ -279,7 +306,7 @@ function coord_db2wow($mapid, $x, $y, $global) {
     if (count($rows) == 0) {
         // Ничего не найдено. Мб инста??
 
-        $row = $DB->selectRow('SELECT * FROM '.'host_mojotrollz_aowow'.'.?_aowow_zones WHERE (mapID=? and x_min=0 and x_max=0 and y_min=0 and y_max=0)', $mapid);
+        $row = $DB->selectRow('SELECT * FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_zones WHERE (mapID=? and x_min=0 and x_max=0 and y_min=0 and y_max=0)', $mapid);
         if ($row) {
             $wow['zone'] = $row['areatableID'];
             $wow['name'] = $row['name'];
@@ -345,7 +372,8 @@ function mass_coord(&$data) {
  */
 function factioninfo($id) {
     global $DB;
-    $faction['name'] = $DB->selectCell('SELECT name' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_factions WHERE factionID = ?d LIMIT 1', $id);
+    global $UDWBaseconf;
+    $faction['name'] = $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID = ?d LIMIT 1', $id);
     $faction['entry'] = $id;
     return $faction;
 }

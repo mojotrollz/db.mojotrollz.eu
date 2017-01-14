@@ -97,7 +97,7 @@ switch ($_SESSION['locale']) {
         d('LOCALE_EQUIP_UNK0', '');
         d('LOCALE_EQUIP_TABARD', 'Tabard');
         d('LOCALE_EQUIP_MAINHAND', 'Main Hand');
-        d('LOCALE_EQUIP_CHEST2', 'Chest');
+        d('LOCALE_EQUIP_CHEST2', 'Robe');
         d('LOCALE_EQUIP_OFFHAND2', 'Off Hand');
         d('LOCALE_EQUIP_HELDINOFFHAND', 'Held In Off-Hand');
         d('LOCALE_EQUIP_PROJECTILE', 'Projectile');
@@ -181,6 +181,16 @@ switch ($_SESSION['locale']) {
         d('LOCALE_GBONUS_CHANCEONHIT', 'Chance on hit: ');
         d('LOCALE_GBONUS_EQUIP', 'Equip: ');
         d('LOCALE_GBONUS_USE', 'Use: ');
+        // sockets
+	d('LOCALE_SOCKET_META','Meta Socket');
+	d('LOCALE_SOCKET_RED','Red Socket');
+        d('LOCALE_SOCKET_YELLOW','Yellow Socket');
+	d('LOCALE_SOCKET_BLUE','Blue Socket');
+        //Zones
+        d('LOCALE_ZONE_FLIGHT_MASTERS','Flight masters');
+        d('LOCALE_ZONE_INNKEEPERS','Innkeepers');
+        d('LOCALE_ZONE_REPAIRERS','Repairers');
+        d('LOCALE_ZONE_SPIRIT_HEALERS','Spirit healers');
 
         // misc
         d('LOCALE_SPEED', 'Speed');

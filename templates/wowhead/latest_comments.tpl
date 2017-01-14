@@ -14,24 +14,24 @@
 		<div id="lv-comments" class="listview"></div>
 		<script type="text/javascript">
 			{strip}
-			new Listview({ldelim}template: 'commentpreview', id: 'comments', data: [
-			{foreach name=foo from=$comments key=number item=comment}
-				{ldelim}
-					id:{$comment.id},
-					type:{$comment.type},
-					typeId:{$comment.typeID},
-					subject:'{$comment.subject|escape:"javascript"}',
-					preview:'{$comment.preview|escape:"javascript"}',
-					user:'{$comment.user|escape:"javascript"}',
-					rating: {$comment.rating},
-					date:'{$comment.date|date_format:"%Y/%m/%d %H:%M:%S"}',
-					elapsed:{$comment.elapsed},
-					purged: {$comment.purged},
-					deleted:0
-				{rdelim}
-				{if $smarty.foreach.foo.last}{else},{/if}
-			{/foreach}
-			]{rdelim});
+			//new Listview({ldelim}template: 'commentpreview', id: 'comments', data: [
+			//{foreach name=foo from=$comments key=number item=comment}
+			//	{ldelim}
+			//		id:{$comment.id},
+			//		type:{$comment.type},
+			//		typeId:{$comment.typeID},
+			//		subject:'{$comment.subject|escape:"javascript"}',
+			//		preview:'{$comment.preview|escape:"javascript"}',
+			//		user:'{$comment.user|escape:"javascript"}',
+			//		rating: {$comment.rating},
+			//		date:'{$comment.date|date_format:"%Y/%m/%d %H:%M:%S"}',
+			//		elapsed:{$comment.elapsed},
+			//		purged: {$comment.purged},
+			//		deleted:0
+			//	{rdelim}
+			//	{if $smarty.foreach.foo.last}{else},{/if}
+			//{/foreach}
+			//]{rdelim});
 			{/strip}
 		</script>
 		<div class="clear"></div>

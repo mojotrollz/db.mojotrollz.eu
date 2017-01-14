@@ -4,7 +4,7 @@
 	<div class="main-contents" id="main-contents">
 {if $found}
 		<div class="text">
-			<a href="http://www.wowhead.com/?{$query}" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
+			<a target="blank" href="http://www.wowhead.com/?{$query}" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
 			<h1>{#Search_results_for#} <i>{$search|escape:"html"}</i></h1>
 		</div>
 		<div id="tabs-generic"></div>
@@ -24,7 +24,7 @@ myTabs.flush();
 		<div class="clear"></div>
 	{else}
 		<div class=text>
-			<a href="http://www.wowhead.com/?{$query}" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
+			<a target="blank" href="http://www.wowhead.com/?{$query}" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
 			<h1>{#Search_results_for#} <i>{$search|escape:"html"}</i></h1>
 		</div>
 		{/if}

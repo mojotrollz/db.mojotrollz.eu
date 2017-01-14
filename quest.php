@@ -45,7 +45,7 @@ if (!$quest = load_cache(10, intval($id))) {
     while ($tmp) {
         $tmp = $DB->selectRow('
 			SELECT q.entry, q.Title
-				{, l.Title_loc?d AS `Title_loc`}
+				{, l.Title?d AS `Title`}
 			FROM ?_quest_template q
 				{LEFT JOIN (?_locales_quest l) ON l.entry=q.entry AND ?d}
 			WHERE q.NextQuestInChain=?d
@@ -53,8 +53,8 @@ if (!$quest = load_cache(10, intval($id))) {
 			', ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $quest['series'][0]['entry']
         );
         if ($tmp) {
-            if (!empty($tmp['Title_loc']))
-                $tmp['Title'] = $tmp['Title_loc'];
+            if (!empty($tmp['Title']))
+                $tmp['Title'] = $tmp['Title'];
             array_unshift($quest['series'], $tmp);
         }
     }
@@ -63,7 +63,7 @@ if (!$quest = load_cache(10, intval($id))) {
     while ($tmp) {
         $tmp = $DB->selectRow('
 			SELECT q.entry, q.Title, q.NextQuestInChain
-				{, l.Title_loc?d AS `Title_loc`}
+				{, l.Title?d AS `Title`}
 			FROM ?_quest_template q
 				{LEFT JOIN (?_locales_quest l) ON l.entry=q.entry AND ?}
 			WHERE q.entry=?d
@@ -71,8 +71,8 @@ if (!$quest = load_cache(10, intval($id))) {
 			', ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $quest['series'][count($quest['series']) - 1]['NextQuestInChain']
         );
         if ($tmp) {
-            if (!empty($tmp['Title_loc']))
-                $tmp['Title'] = $tmp['Title_loc'];
+            if (!empty($tmp['Title']))
+                $tmp['Title'] = $tmp['Title'];
             array_push($quest['series'], $tmp);
         }
     }
@@ -86,7 +86,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // Квесты, которые необходимо выполнить, что бы получить этот квест
     if (!$quest['req'] = $DB->select('
 				SELECT q.entry, q.Title, q.NextQuestInChain
-					{, l.Title_loc?d AS `Title_loc`}
+					{, l.Title?d AS `Title`}
 				FROM ?_quest_template q
 					{LEFT JOIN (?_locales_quest l) ON l.entry=q.entry AND ?}
 				WHERE
@@ -102,7 +102,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // Квесты, которые становятся доступными, только после того как выполнен этот квест (необязательно только он)
     if (!$quest['open'] = $DB->select('
 				SELECT q.entry, q.Title
-					{, l.Title_loc?d AS `Title_loc`}
+					{, l.Title?d AS `Title`}
 				FROM ?_quest_template q
 					{LEFT JOIN (?_locales_quest l) ON l.entry=q.entry AND ?}
 				WHERE
@@ -119,7 +119,7 @@ if (!$quest = load_cache(10, intval($id))) {
     if ($quest['ExclusiveGroup'] > 0)
         if (!$quest['closes'] = $DB->select('
 				SELECT q.entry, q.Title
-					{, l.Title_loc?d AS `Title_loc`}
+					{, l.Title?d AS `Title`}
 				FROM ?_quest_template q
 					{LEFT JOIN (?_locales_quest l) ON l.entry=q.entry AND ?}
 				WHERE
@@ -135,7 +135,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // Требует выполнения одного из квестов, на выбор:
     if (!$quest['reqone'] = $DB->select('
 				SELECT q.entry, q.Title
-					{, l.Title_loc?d AS `Title_loc`}
+					{, l.Title?d AS `Title`}
 				FROM ?_quest_template q
 					{LEFT JOIN (?_locales_quest l) ON l.entry=q.entry AND ?}
 				WHERE
@@ -151,7 +151,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // Квесты, которые доступны, только во время выполнения этого квеста
     if (!$quest['enables'] = $DB->select('
 				SELECT q.entry, q.Title
-					{, l.Title_loc?d AS `Title_loc`}
+					{, l.Title?d AS `Title`}
 				FROM ?_quest_template q
 					{LEFT JOIN (?_locales_quest l) ON l.entry=q.entry AND ?}
 				WHERE q.PrevQuestID=?d
@@ -167,7 +167,7 @@ if (!$quest = load_cache(10, intval($id))) {
     if ($quest['PrevQuestID'] < 0)
         if (!$quest['enabledby'] = $DB->select('
 				SELECT q.entry, q.Title
-					{, l.Title_loc?d AS `Title_loc`}
+					{, l.Title?d AS `Title`}
 				FROM ?_quest_template q
 					{LEFT JOIN (?_locales_quest l) ON l.entry=q.entry AND ?}
 				WHERE q.entry=?d
@@ -183,8 +183,8 @@ if (!$quest = load_cache(10, intval($id))) {
     if ($questItems)
         foreach ($questItems as $item)
             foreach ($quest[$item] as $i => $x)
-                if (!empty($quest[$item][$i]['Title_loc']))
-                    $quest[$item][$i]['Title'] = $quest[$item][$i]['Title_loc'];
+                if (!empty($quest[$item][$i]['Title']))
+                    $quest[$item][$i]['Title'] = $quest[$item][$i]['Title'];
 
 
 
@@ -208,7 +208,7 @@ if (!$quest = load_cache(10, intval($id))) {
 
         // TODO: skill localization
         $quest['reqskill'] = array(
-            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill WHERE skillID=?d LIMIT 1', $quest['SkillOrClass']),
+            'name' => $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill WHERE skillID=?d LIMIT 1', $quest['SkillOrClass']),
             'value' => $quest['RequiredSkillValue']
         );
     } elseif ($quest['SkillOrClass'] < 0)
@@ -218,13 +218,13 @@ if (!$quest = load_cache(10, intval($id))) {
     // Требуемые отношения с фракциями, что бы начать квест
     if ($quest['RequiredMinRepFaction'] && $quest['RequiredMinRepValue'])
         $quest['RequiredMinRep'] = array(
-            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RequiredMinRepFaction']),
+            'name' => $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RequiredMinRepFaction']),
             'entry' => $quest['RequiredMinRepFaction'],
             'value' => $reputations[$quest['RequiredMinRepValue']]
         );
     if ($quest['RequiredMaxRepFaction'] && $quest['RequiredMaxRepValue'])
         $quest['RequiredMaxRep'] = array(
-            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RequiredMaxRepFaction']),
+            'name' => $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RequiredMaxRepFaction']),
             'entry' => $quest['RequiredMaxRepFaction'],
             'value' => $reputations[$quest['RequiredMaxRepValue']]
         );
@@ -234,7 +234,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // Спелл, кастуемый на игрока в начале квеста
     if ($quest['SrcSpell']) {
         $tmp = $DB->selectRow('
-			SELECT ?#, s.spellname_loc' . $_SESSION['locale'] . '
+			SELECT ?#, s.spellname' . '
 			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons si
 			WHERE
 				s.spellID=?d
@@ -243,7 +243,7 @@ if (!$quest = load_cache(10, intval($id))) {
         );
         if ($tmp) {
             $quest['SrcSpell'] = array(
-                'name' => $tmp['spellname_loc' . $_SESSION['locale']],
+                'name' => $tmp['spellname'],
                 'entry' => $tmp['spellID']);
             allspellsinfo2($tmp);
         }
@@ -253,7 +253,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // Спелл, кастуемый на игрока в награду за выполнение
     if ($quest['RewSpellCast'] > 0 || $quest['RewSpell'] > 0) {
         $tmp = $DB->SelectRow('
-			SELECT ?#, s.spellname_loc' . $_SESSION['locale'] . '
+			SELECT ?#, s.spellname' . '
 			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell s, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons si
 			WHERE
 				s.spellID=?d
@@ -262,7 +262,7 @@ if (!$quest = load_cache(10, intval($id))) {
         );
         if ($tmp) {
             $quest['spellreward'] = array(
-                'name' => $tmp['spellname_loc' . $_SESSION['locale']],
+                'name' => $tmp['spellname'],
                 'entry' => $tmp['spellID']);
             allspellsinfo2($tmp);
         }
@@ -292,7 +292,7 @@ if (!$quest = load_cache(10, intval($id))) {
             // Спелл
             if ($quest['ReqSpellCast' . $i])
                 $quest['coreqs'][$i]['spell'] = array(
-                    'name' => $DB->selectCell('SELECT spellname_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell WHERE spellid=?d LIMIT 1', $quest['ReqSpellCast' . $i]),
+                    'name' => $DB->selectCell('SELECT spellname' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell WHERE spellid=?d LIMIT 1', $quest['ReqSpellCast' . $i]),
                     'entry' => $quest['ReqSpellCast' . $i]
                 );
         }
@@ -312,7 +312,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // Фракции необходимые для квеста
     if ($quest['RepObjectiveFaction'] > 0 && $quest['RepObjectiveValue'] > 0) {
         $quest['factionreq'] = array(
-            'name' => $DB->selectCell('SELECT name_loc' . $_SESSION['locale'] . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RepObjectiveFaction']),
+            'name' => $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factions WHERE factionID=?d LIMIT 1', $quest['RepObjectiveFaction']),
             'entry' => $quest['RepObjectiveFaction'],
             'value' => $reputations[$quest['RepObjectiveValue']]
         );
@@ -324,7 +324,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // НПС
     $rows = $DB->select('
 		SELECT c.entry, c.name, A, H
-			{, l.name_loc?d as `name_loc`}
+			{, l.name?d as `name`}
 		FROM ?_creature_questrelation q, '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 			{LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ?}
 		WHERE
@@ -335,8 +335,8 @@ if (!$quest = load_cache(10, intval($id))) {
     );
     if ($rows) {
         foreach ($rows as $tmp) {
-            if (!empty($tmp['name_loc']))
-                $tmp['name'] = $tmp['name_loc'];
+            if (!empty($tmp['name']))
+                $tmp['name'] = $tmp['name'];
             if ($tmp['A'] == -1 && $tmp['H'] == 1)
                 $tmp['side'] = 'horde';
             elseif ($tmp['A'] == 1 && $tmp['H'] == -1)
@@ -349,7 +349,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // ГО
     $rows = $DB->select('
 		SELECT g.entry, g.name
-			{, l.name_loc?d as `name_loc`}
+			{, l.name?d as `name`}
 		FROM ?_gameobject_questrelation q, ?_gameobject_template g
 			{LEFT JOIN (?_locales_gameobject l) ON l.entry = g.entry AND ?}
 		WHERE
@@ -359,8 +359,8 @@ if (!$quest = load_cache(10, intval($id))) {
     );
     if ($rows) {
         foreach ($rows as $tmp) {
-            if (!empty($tmp['name_loc']))
-                $tmp['name'] = $tmp['name_loc'];
+            if (!empty($tmp['name']))
+                $tmp['name'] = $tmp['name'];
             $quest['start'][] = array_merge($tmp, array('type' => 'object'));
         }
     }
@@ -369,7 +369,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // итем
     $rows = $DB->select('
 		SELECT i.name, i.entry, i.quality, LOWER(a.iconname) AS iconname
-			{, l.name_loc?d as `name_loc`}
+			{, l.name?d as `name`}
 		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons a, ?_item_template i
 			{LEFT JOIN (?_locales_item l) ON l.entry=i.entry AND ?}
 		WHERE
@@ -379,8 +379,8 @@ if (!$quest = load_cache(10, intval($id))) {
     );
     if ($rows) {
         foreach ($rows as $tmp) {
-            if (!empty($tmp['name_loc']))
-                $tmp['name'] = $tmp['name_loc'];
+            if (!empty($tmp['name']))
+                $tmp['name'] = $tmp['name'];
             $quest['start'][] = array_merge($tmp, array('type' => 'item'));
         }
     }
@@ -390,7 +390,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // НПС
     $rows = $DB->select('
 		SELECT c.entry, c.name, A, H
-			{, l.name_loc?d as `name_loc`}
+			{, l.name?d as `name`}
 		FROM ?_creature_questrelation q, '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 			{LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ?}
 		WHERE
@@ -401,8 +401,8 @@ if (!$quest = load_cache(10, intval($id))) {
     );
     if ($rows) {
         foreach ($rows as $tmp) {
-            if (!empty($tmp['name_loc']))
-                $tmp['name'] = $tmp['name_loc'];
+            if (!empty($tmp['name']))
+                $tmp['name'] = $tmp['name'];
             if ($tmp['A'] == -1 && $tmp['H'] == 1)
                 $tmp['side'] = 'horde';
             elseif ($tmp['A'] == 1 && $tmp['H'] == -1)
@@ -415,7 +415,7 @@ if (!$quest = load_cache(10, intval($id))) {
     // ГО
     $rows = $DB->select('
 		SELECT g.entry, g.name
-			{, l.name_loc?d as `name_loc`}
+			{, l.name?d as `name`}
 		FROM ?_gameobject_questrelation q, ?_gameobject_template g
 			{LEFT JOIN (?_locales_gameobject l) ON l.entry = g.entry AND ?}
 		WHERE
@@ -425,8 +425,8 @@ if (!$quest = load_cache(10, intval($id))) {
     );
     if ($rows) {
         foreach ($rows as $tmp) {
-            if (!empty($tmp['name_loc']))
-                $tmp['name'] = $tmp['name_loc'];
+            if (!empty($tmp['name']))
+                $tmp['name'] = $tmp['name'];
             $quest['end'][] = array_merge($tmp, array('type' => 'object'));
         }
     }

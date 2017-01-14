@@ -29,7 +29,7 @@
 
 			<div class="text">
 
-				<a href="http://www.wowhead.com/?{$query}" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
+				<a target="blank" href="http://www.wowhead.com/?{$query}" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
 				<h1>{$object.name}</h1>
 
 {if $zonedata}
@@ -65,6 +65,7 @@
 					{/foreach}
 				</span>
 {/strip}
+<br/>
 				<div id="mapper-generic"></div>
 				<div class="clear"></div>
 {literal}
@@ -104,7 +105,7 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($object.drop)}{include file='bricks/item_table.tpl' id='contains' name='contains' tabsid='tabsRelated' data=$object.drop}{/if}
 {if isset($object.starts)}{include file='bricks/quest_table.tpl' id='starts' name='starts' tabsid='tabsRelated' data=$object.starts}{/if}
 {if isset($object.ends)}{include file='bricks/quest_table.tpl' id='ends' name='ends' tabsid='tabsRelated' data=$object.ends}{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+//new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
 tabsRelated.flush();
 </script>
 

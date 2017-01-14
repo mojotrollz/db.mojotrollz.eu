@@ -4189,13 +4189,13 @@ Listview.templates = {
                     {
             id: "classes",
             name: LANG.classes,
-            compute: function (C, D) {
-                if (C.classes != null) {
-                    for (var B = 0, A = C.classes.length; B < A; ++B) {
-                        if (B > 0) {
-                            ae(D, ct(LANG.comma))
+            compute: function (A, B) {
+                if (A.classes != null) {
+                    for (var D = 0, E = A.classes.length; D < E; ++D) {
+                        if (D > 0) {
+                            ae(B, ct(LANG.comma))
                         }
-                        ae(D, ct(g_chr_classes[C.classes[B]]))
+                        ae(B, ct(g_chr_classes[A.classes[D]]))
                     }
                 }
             },

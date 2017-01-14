@@ -39,7 +39,7 @@ var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($faction.items)}{include	file='bricks/item_table.tpl'			id='items'	name='items'		tabsid='tabsRelated' data=$faction.items}{/if}
 {if isset($faction.npcs)}{include	file='bricks/creature_table.tpl'		id='npcs'	name='members'		tabsid='tabsRelated' data=$faction.npcs}{/if}
 {if isset($faction.quests)}{include	file='bricks/quest_table.tpl'			id='quests'	name='quests'		tabsid='tabsRelated' data=$faction.quests}{/if}
-new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
+//new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
 tabsRelated.flush();
 </script>
 

@@ -20,7 +20,7 @@ var g_chr_classes = {
 	4: "Rogue",
 	7: "Shaman",
 	9: "Warlock",
-	1: "Warrior"
+	1: "Warrior",
 };
 var g_chr_races = {
 	10: "Blood Elf",
@@ -54,6 +54,7 @@ var g_item_slots = {
 	17: "Two-Hand",
 	18: "Bag",
 	19: "Tabard",
+        20: "Chest",
 	21: "Main Hand",
 	22: "Off Hand",
 	23: "Held In Off-hand",

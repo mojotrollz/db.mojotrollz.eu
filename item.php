@@ -78,8 +78,8 @@ if (!$item = load_cache(5, $id)) {
                 $rows = $DB->select('
 					SELECT c.?#, c.entry
 					{
-						, l.name_loc?d as `name_loc`
-						, l.subname_loc' . $_SESSION['locale'] . ' as `subname_loc`
+						, l.name?d as `name`
+						, l.subname' . ' as `subname`
 					}
 					FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 					{ LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ? }
@@ -144,8 +144,8 @@ if (!$item = load_cache(5, $id)) {
     $rows_soldby = $DB->select('
 		SELECT ?#, c.entry, v.maxcount AS stock
 		{
-			, l.name_loc?d as `name_loc`
-			, l.subname_loc' . $_SESSION['locale'] . ' as `subname_loc`
+			, l.name?d as `name`
+			, l.subname' . ' as `subname`
 		}
 		FROM ?_npc_vendor v, '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 		{ LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ? }
@@ -237,7 +237,7 @@ if (!$item = load_cache(5, $id)) {
         foreach ($drops_cii as $lootid => $drop) {
             $rows = $DB->select('
 				SELECT c.?#, c.entry, maxcount
-				{ , l.name_loc?d AS `name_loc`}
+				{ , l.name?d AS `name`}
 				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons, ?_item_template c
 				{ LEFT JOIN (?_locales_item l) ON l.entry=c.entry AND ? }
 				WHERE
@@ -266,8 +266,8 @@ if (!$item = load_cache(5, $id)) {
             $rows = $DB->select('
 				SELECT c.?#, c.entry
 				{
-					, l.name_loc?d as `name_loc`
-					, l.subname_loc' . $_SESSION['locale'] . ' as `subname_loc`
+					, l.name?d as `name`
+					, l.subname' . $_SESSION['locale'] . ' as `subname`
 				}
 				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 				{ LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ? }
@@ -293,8 +293,8 @@ if (!$item = load_cache(5, $id)) {
             $rows = $DB->select('
 				SELECT c.?#, c.entry
 				{
-					, l.name_loc?d as `name_loc`
-					, l.subname_loc' . $_SESSION['locale'] . ' as `subname_loc`
+					, l.name?d as `name`
+					, l.subname' . ' as `subname`
 				}
 				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 				{ LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ? }
@@ -324,7 +324,7 @@ if (!$item = load_cache(5, $id)) {
             $rows = $DB->select('
 				SELECT c.?#, c.entry, maxcount
 				{
-					, l.name_loc?d as `name_loc`
+					, l.name?d as `name`
 				}
 				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons, ?_item_template c
 				{ LEFT JOIN (?_locales_item l) ON l.entry=c.entry AND ? }
@@ -350,7 +350,7 @@ if (!$item = load_cache(5, $id)) {
         $rows_cpi = $DB->select('
 			SELECT c.?#, c.entry, maxcount
 			{
-				, l.name_loc?d as `name_loc`
+				, l.name?d as `name`
 			}
 			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons, ?_item_template c
 			{ LEFT JOIN (?_locales_item l) ON l.entry=c.entry AND ? }
@@ -390,7 +390,7 @@ if (!$item = load_cache(5, $id)) {
         foreach ($rows_r as $numRow => $row) {
             $item['reagentfor'][$numRow] = array();
             $item['reagentfor'][$numRow]['entry'] = $row['spellID'];
-            $item['reagentfor'][$numRow]['name'] = $row['spellname_loc' . $_SESSION['locale']];
+            $item['reagentfor'][$numRow]['name'] = $row['spellname'];
             $item['reagentfor'][$numRow]['school'] = $row['resistancesID'];
             $item['reagentfor'][$numRow]['level'] = $row['levelspell'];
             $item['reagentfor'][$numRow]['quality'] = '@';
@@ -448,7 +448,7 @@ if (!$item = load_cache(5, $id)) {
         foreach ($drops_fi as $lootid => $drop) {
             // Обычные локации
             $row = $DB->selectRow('
-				SELECT name_loc' . $_SESSION['locale'] . ' AS name, areatableID as id
+				SELECT name' . ' AS name, areatableID as id
 				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_zones
 				WHERE
 					areatableID=?d
@@ -461,7 +461,7 @@ if (!$item = load_cache(5, $id)) {
             } else {
                 // Инсты
                 $row = $DB->selectRow('
-					SELECT name_loc' . $_SESSION['locale'] . ' AS name, mapID as id
+					SELECT name' . ' AS name, areatableID as id
 					FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_zones
 					WHERE
 						areatableID=?d

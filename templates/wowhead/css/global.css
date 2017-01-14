@@ -1419,6 +1419,8 @@ a.moneyitem:hover,a.moneysocketmeta:hover,a.moneysocketred:hover,a.moneysocketye
 	height:68px;
 	background:6px 6px no-repeat;
 	position:relative;
+        padding-top: 4px;
+        padding-left: 3px;
 }
 
 .iconlarge .tile

@@ -19,12 +19,13 @@ require_once('includes/game.php');
  * @return int 
  */
 function getcomments($type, $typeid) {
-    global $DB;
+    /*global $DB;
     global $rDB;
+    global $UDWBaseconf;
     //TODO $UDWBaseconf['aowow']['db']
     $rows = $DB->select('
 		SELECT id, userid, post_date, commentbody, replyto
-		FROM '.'host_mojotrollz_aowow'.'.?_aowow_comments
+		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_comments
 		WHERE type=? AND typeid=?
 		ORDER BY replyto, post_date
 		', $type, $typeid
@@ -52,5 +53,5 @@ function getcomments($type, $typeid) {
         $comments[$i]['deleted'] = 0;
     }
 
-    return $comments;
+    return $comments;*/
 }

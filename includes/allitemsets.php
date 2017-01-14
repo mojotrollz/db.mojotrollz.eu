@@ -27,6 +27,7 @@ function itemsetinfo2(&$row) {
     $itemset['minlevel'] = 255;
     $itemset['maxlevel'] = 0;
     $itemset['pieces'] = array();
+    $itemset['classes'] = array();
     for ($j = 1; $j <= 10; $j++)
         if ($row['item' . $j]) {
             $itemset['pieces'][] = $row['item' . $j];
@@ -36,6 +37,8 @@ function itemsetinfo2(&$row) {
                 $itemset['minlevel'] = $item['level'];
             if ($item['level'] > $itemset['maxlevel'])
                 $itemset['maxlevel'] = $item['level'];
+            $itemset['classes'] = $item['classes'];
+            
         }
     if (isset($item)) {
         $itemset['quality2'] = 6 - $item['quality'];
@@ -45,6 +48,8 @@ function itemsetinfo2(&$row) {
         $itemset['quality2'] = 6;
     }
     // TODO: classes
-    $itemset['classes'][] = 0;
+    //$itemset['classes'][] = 0;
+    //if (classes($Row['AllowableClass']))
+    //    $x .= LOCALE_CLASSES . ': ' . classes($Row['AllowableClass']) . '<br />';
     return $itemset;
 }

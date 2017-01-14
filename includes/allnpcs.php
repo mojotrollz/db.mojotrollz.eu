@@ -52,6 +52,7 @@ function creatureinfo2(&$Row) {
 function creatureinfo($id) {
     global $DB;
     global $npc_cols;
+    global $UDWBaseconf;
     $row = $DB->selectRow('
 		SELECT ?#, c.entry
 		{
@@ -59,7 +60,7 @@ function creatureinfo($id) {
 			, l.subname_loc' . $_SESSION['locale'] . ' as `subname_loc`
 			, ?
 		}
-		FROM '.'host_mojotrollz_aowow'.'.?_aowow_factiontemplate, ?_creature_template c
+		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 		{
 			LEFT JOIN (?_locales_creature l)
 			ON l.entry=c.entry AND ?

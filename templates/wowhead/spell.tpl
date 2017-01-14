@@ -27,7 +27,7 @@
 		<script type="text/javascript">ss_appendSticky()</script>
 
 		<div class="text">
-			<a href="http://www.wowhead.com/?{$query}" target="_blank" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
+			<a target="blank" href="http://www.wowhead.com/?{$query}" target="_blank" class="button-red"><div><blockquote><i>Wowhead</i></blockquote><span>Wowhead</span></div></a>
 			<h1>{$spell.name}</h1>
 
 			<div id="icon{$spell.entry}-generic" style="float: left"></div>

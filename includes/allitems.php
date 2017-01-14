@@ -18,13 +18,13 @@ require_once('includes/allquests.php');
 
 // Массивы с названиями столбцов, необходимых для различных уровней вызова функций
 // для allitems($level=0) - соответствия номер-иконка
-$item_cols[0] = array('entry', 'iconname', 'quality', 'name');
+$item_cols[0] = array('entry', 'iconname', 'quality', 'name', 'AllowableClass');
 // для allitems($level=1) - ajax, тултип
-$item_cols[1] = array('entry', 'name', 'quality', 'iconname', 'maxcount', 'bonding', 'startquest', 'Map', 'ContainerSlots', 'class', 'InventoryType', 'subclass', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'dmg_type3', 'dmg_min3', 'dmg_max3', 'dmg_type4', 'dmg_min4', 'dmg_max4', 'dmg_type5', 'dmg_min5', 'dmg_max5', 'armor', 'block', 'stat_type1', 'stat_type2', 'stat_type3', 'stat_type4', 'stat_type5', 'stat_type6', 'stat_type7', 'stat_type8', 'stat_type9', 'stat_type10', 'stat_value1', 'stat_value2', 'stat_value3', 'stat_value4', 'stat_value5', 'stat_value6', 'stat_value7', 'stat_value8', 'stat_value9', 'stat_value10', 'holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res', 'RandomProperty', 'MaxDurability', 'AllowableClass', 'RequiredLevel', 'RequiredSkill', 'requiredspell', 'RequiredReputationFaction', 'RequiredReputationRank', 'spellid_1', 'spellid_2', 'spellid_3', 'spellid_4', 'spellid_5', 'spelltrigger_1', 'spelltrigger_2', 'spelltrigger_3', 'spelltrigger_4', 'spelltrigger_5', 'description', 'PageText', 'BagFamily', 'RequiredSkillRank');
+$item_cols[1] = array('entry', 'name', 'quality', 'iconname', 'maxcount', 'bonding', 'startquest', 'Map', 'ContainerSlots', 'class', 'InventoryType', 'subclass', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'dmg_type3', 'dmg_min3', 'dmg_max3', 'dmg_type4', 'dmg_min4', 'dmg_max4', 'dmg_type5', 'dmg_min5', 'dmg_max5', 'armor', 'block', 'stat_type1', 'stat_type2', 'stat_type3', 'stat_type4', 'stat_type5', 'stat_type6', 'stat_type7', 'stat_type8', 'stat_type9', 'stat_type10', 'stat_value1', 'stat_value2', 'stat_value3', 'stat_value4', 'stat_value5', 'stat_value6', 'stat_value7', 'stat_value8', 'stat_value9', 'stat_value10', 'holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res', 'RandomProperty', 'MaxDurability', 'AllowableClass', 'RequiredLevel', 'RequiredSkill', 'requiredspell', 'RequiredReputationFaction', 'RequiredReputationRank', 'spellid_1', 'spellid_2', 'spellid_3', 'spellid_4', 'spellid_5', 'spelltrigger_1', 'spelltrigger_2', 'spelltrigger_3', 'spelltrigger_4', 'spelltrigger_5', 'description', 'PageText', 'BagFamily', 'RequiredSkillRank', 'socketColor_1','socketColor_2','socketColor_3','socketBonus', 'BuyPrice', 'SellPrice');
 // для iteminfo($level=0) - строчки списка
-$item_cols[2] = array('name', 'quality', 'iconname', 'InventoryType', 'ItemLevel', 'RequiredLevel', 'class', 'subclass', 'stackable', 'BuyPrice', 'armor', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'dmg_type3', 'dmg_min3', 'dmg_max3', 'dmg_type4', 'dmg_min4', 'dmg_max4', 'dmg_type5', 'dmg_min5', 'dmg_max5', 'ContainerSlots');
+$item_cols[2] = array('name', 'quality', 'iconname', 'InventoryType', 'ItemLevel', 'RequiredLevel', 'class', 'subclass', 'stackable', 'BuyPrice', 'armor', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'dmg_type3', 'dmg_min3', 'dmg_max3', 'dmg_type4', 'dmg_min4', 'dmg_max4', 'dmg_type5', 'dmg_min5', 'dmg_max5', 'ContainerSlots', 'socketColor_1','socketColor_2','socketColor_3','socketBonus', 'BuyPrice', 'SellPrice', 'AllowableClass');
 // для iteminfo($level=1)
-$item_cols[3] = array('entry', 'name', 'quality', 'iconname', 'maxcount', 'bonding', 'startquest', 'Map', 'ContainerSlots', 'class', 'InventoryType', 'subclass', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'dmg_type3', 'dmg_min3', 'dmg_max3', 'dmg_type4', 'dmg_min4', 'dmg_max4', 'dmg_type5', 'dmg_min5', 'dmg_max5', 'armor', 'block', 'stat_type1', 'stat_type2', 'stat_type3', 'stat_type4', 'stat_type5', 'stat_type6', 'stat_type7', 'stat_type8', 'stat_type9', 'stat_type10', 'stat_value1', 'stat_value2', 'stat_value3', 'stat_value4', 'stat_value5', 'stat_value6', 'stat_value7', 'stat_value8', 'stat_value9', 'stat_value10', 'holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res', 'RandomProperty', 'MaxDurability', 'AllowableClass', 'RequiredLevel', 'RequiredSkill', 'requiredspell', 'RequiredReputationFaction', 'RequiredReputationRank', 'spellid_1', 'spellid_2', 'spellid_3', 'spellid_4', 'spellid_5', 'spelltrigger_1', 'spelltrigger_2', 'spelltrigger_3', 'spelltrigger_4', 'spelltrigger_5', 'description', 'PageText', 'BagFamily', 'RequiredSkillRank', 'ItemLevel', 'stackable', 'BuyPrice', 'DisenchantID', 'SellPrice'/* ,  [NOTE] not used in 1.12 'RequiredDisenchantSkill' */);
+$item_cols[3] = array('entry', 'name', 'quality', 'iconname', 'maxcount', 'bonding', 'startquest', 'Map', 'ContainerSlots', 'class', 'InventoryType', 'subclass', 'dmg_type1', 'dmg_min1', 'dmg_max1', 'delay', 'dmg_type2', 'dmg_min2', 'dmg_max2', 'dmg_type3', 'dmg_min3', 'dmg_max3', 'dmg_type4', 'dmg_min4', 'dmg_max4', 'dmg_type5', 'dmg_min5', 'dmg_max5', 'armor', 'block', 'stat_type1', 'stat_type2', 'stat_type3', 'stat_type4', 'stat_type5', 'stat_type6', 'stat_type7', 'stat_type8', 'stat_type9', 'stat_type10', 'stat_value1', 'stat_value2', 'stat_value3', 'stat_value4', 'stat_value5', 'stat_value6', 'stat_value7', 'stat_value8', 'stat_value9', 'stat_value10', 'holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res', 'RandomProperty', 'MaxDurability', 'AllowableClass', 'RequiredLevel', 'RequiredSkill', 'requiredspell', 'RequiredReputationFaction', 'RequiredReputationRank', 'spellid_1', 'spellid_2', 'spellid_3', 'spellid_4', 'spellid_5', 'spelltrigger_1', 'spelltrigger_2', 'spelltrigger_3', 'spelltrigger_4', 'spelltrigger_5', 'description', 'PageText', 'BagFamily', 'RequiredSkillRank', 'ItemLevel', 'stackable', 'BuyPrice', 'DisenchantID', 'SellPrice', 'socketColor_1','socketColor_2','socketColor_3','socketBonus');
 
 $resz = array('holy_res', 'fire_res', 'nature_res', 'frost_res', 'shadow_res', 'arcane_res');
 $resz_desc = array(LOCALE_HOLY_RESISTANCE, LOCALE_FIRE_RESISTANCE, LOCALE_NATURE_RESISTANCE, LOCALE_FROST_RESISTANCE, LOCALE_SHADOW_RESISTANCE, LOCALE_ARCANE_RESISTANCE);
@@ -132,8 +132,8 @@ function b_type($type, $value) {
  */
 function req_spell($spell_id) {
     global $DB;
-    //TODO $UDWBaseconf['aowow']['db']
-    return $DB->selectCell('SELECT spellname' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_spell WHERE spellID=?d LIMIT 1', $spell_id);
+    global $UDWBaseconf;
+    return $DB->selectCell('SELECT spellname' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell WHERE spellID=?d LIMIT 1', $spell_id);
 }
 
 /**
@@ -238,6 +238,7 @@ function allitemsinfo($id, $level=0) {
     global $DB;
     global $allitems;
     global $item_cols;
+    global $UDWBaseconf;
 
     if (isset($allitems[$id])) {
         return $allitems[$id];
@@ -246,11 +247,11 @@ function allitemsinfo($id, $level=0) {
         $row = $DB->selectRow('
 			SELECT i.?#
 			{
-				, l.name_loc' . $_SESSION['locale'] . ' as `name_loc`
-				, l.description_loc' . $_SESSION['locale'] . ' as `description_loc`
+				, l.name' . ' as `name`
+				, l.description' . ' as `description`
 				, ?
 			}
-			FROM '.'host_mojotrollz_aowow'.'.?_aowow_icons, ?_item_template i
+			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons, ?_item_template i
 			{
 				LEFT JOIN (?_locales_item l)
 				ON l.entry=i.entry AND ?
@@ -279,6 +280,8 @@ function render_item_tooltip(&$Row) {
     global $green;
     // Столбцы для извлечения
     global $itemset_col;
+    
+    global $UDWBaseconf;
 
     $green = array();
 
@@ -303,7 +306,7 @@ function render_item_tooltip(&$Row) {
     // Локация, для которой предназначен этот предмет
     if ($Row['Map'])
         //TODO $UDWBaseconf['aowow']['db']
-        $x .= '<br />' . $DB->selectCell('SELECT name' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_zones WHERE mapid=?d LIMIT 1', $Row['Map']);;
+        $x .= '<br />' . $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_zones WHERE mapid=?d LIMIT 1', $Row['Map']);;
 
     // Теперь в зависимости от типа предмета
     if ($Row['ContainerSlots'] > 1)
@@ -369,6 +372,15 @@ function render_item_tooltip(&$Row) {
     // Случайные бонусы
     if ($Row['RandomProperty'])
         $green[] = 'Random Bonuses';
+    
+    // Сокеты
+    for ($j=1;$j<=3;$j++){
+        if ($Row['socketColor_'.$j]!=0){
+            $x .= socket_type($Row['socketColor_'.$j]).'<br />';}
+    }
+
+    if ($Row['socketBonus']){
+        $x .= '<span class="q0">Socket Bonus: '.socket_bonus($Row['socketBonus']).'</span><br />';}
 
     // Состояние
     if ($Row['MaxDurability'])
@@ -383,8 +395,7 @@ function render_item_tooltip(&$Row) {
 
     // Требуемый скилл (755 - Jewecrafting)
     if (($Row['RequiredSkill']) and ($Row['RequiredSkill'] != 755)) {
-        //TODO $UDWBaseconf['aowow']['db']
-        $x .= LOCALE_REQUIRES . ' ' . $DB->selectCell('SELECT name' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_skill WHERE skillID=?d LIMIT 1', $Row['RequiredSkill']);
+        $x .= LOCALE_REQUIRES . ' ' . $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill WHERE skillID=?d LIMIT 1', $Row['RequiredSkill']);
         if ($Row['RequiredSkillRank'])
             $x .= ' (' . $Row['RequiredSkillRank'] . ')';
         $x .= '<br />';
@@ -431,8 +442,7 @@ function render_item_tooltip(&$Row) {
 // Item Set
     // Временное хранилище всех вещей;
     $x_tmp = '';
-    //TODO $UDWBaseconf['aowow']['db']
-    $row = $DB->selectRow('SELECT ?# FROM '.'host_mojotrollz_aowow'.'.?_aowow_itemset WHERE (item1=?d or item2=?d or item3=?d or item4=?d or item5=?d or item6=?d or item7=?d or item8=?d or item9=?d or item10=?d) LIMIT 1', $itemset_col[1], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry']);
+    $row = $DB->selectRow('SELECT ?# FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_itemset WHERE (item1=?d or item2=?d or item3=?d or item4=?d or item5=?d or item6=?d or item7=?d or item8=?d or item9=?d or item10=?d) LIMIT 1', $itemset_col[1], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry'], $Row['entry']);
     if ($row) {
         $num = 0; // Кол-во вещей в наборе
         for ($i = 1; $i <= 10; $i++) {
@@ -442,16 +452,8 @@ function render_item_tooltip(&$Row) {
                 $x_tmp .= '<span><a href="?item=' . $row['item' . $i] . '">' . $name . '</a></span><br />';
             }
         }
-        $x .= '<span class="q"><a href="?itemset=' . $row['itemsetID'] . '" class="q">' . $row['name_loc' . $_SESSION['locale']] . '</a> (0/' . $num . ')</span>';
-        // Если требуется скилл
-        if ($row['skillID']) {
-            //TODO $UDWBaseconf['aowow']['db']
-            $name = $DB->selectCell('SELECT name' . ' FROM '.'host_mojotrollz_aowow'.'.?_aowow_skill WHERE skillID=?d LIMIT 1', $row['skillID']);
-            $x .= LOCALE_REQUIRES . ' <a href="?spells=11.' . $row['skillID'] . '" class="q1">' . $name . '</a>';
-            if ($row['skilllevel'])
-                $x .= ' (' . $row['skilllevel'] . ')';
-            $x .= '<br />';
-        }
+        $x .= '<span class="q"><a href="?itemset=' . $row['itemsetID'] . '" class="q">' . $row['name'] . '</a> (0/' . $num . ')</span>';
+        
         // Перечисление всех составляющих набора
         $x .= '<div class="q0 indent">' . $x_tmp . '</div>';
         // Перечисление всех бонусов набора
@@ -477,8 +479,31 @@ function render_item_tooltip(&$Row) {
             $x .= '<span>(' . $itemset['spells'][$i]['bonus'] . ') Set: <a href="?spell=' . $itemset['spells'][$i]['entry'] . '">' . $itemset['spells'][$i]['tooltip'] . '</a></span><br />';
         }
         $x .= '</span></span>';
+        // Если требуется скилл
+        if ($row['skillID']) {
+            $name = $DB->selectCell('SELECT name' . ' FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_skill WHERE skillID=?d LIMIT 1', $row['skillID']);
+            $x .= LOCALE_REQUIRES . ' <a href="?spells=11.' . $row['skillID'] . '" class="q1">' . $name . '</a>';
+            if ($row['skilllevel'])
+                $x .= ' (' . $row['skilllevel'] . ')';
+            $x .= '<br />';
+        }
     }
-    $x .= '</td></tr></table>';
+    $x .= '</td></tr>';
+    //SellPrice
+    $sellgold = floor($Row['SellPrice'] / 10000);
+    $sellsilver = floor($Row['SellPrice'] % 10000 / 100);
+    $sellcopper = floor($Row['SellPrice'] % 100);
+    if($sellgold || $sellsilver || $sellcopper){
+        $x .= '<tr><td> Sell Price: ';
+        if($sellgold){
+            $x .= '<span class="moneygold">'.$sellgold.'</span>';}
+        if($sellsilver){
+            $x .= '<span class="moneysilver">'.$sellsilver.'</span>';}
+        if($sellcopper){
+            $x .= '<span class="moneycopper">'.$sellcopper.'</span>';}
+        $x .= '</td></tr>';
+    }
+    $x .= '</table>';
     return $x;
 }
 
@@ -494,6 +519,7 @@ function iteminfo2(&$Row, $level=0) {
     global $allitems;
     global $spell_cols;
     global $object_cols;
+    global $UDWBaseconf;
 
     if (!isset($Row['entry']))
         return array();
@@ -502,7 +528,7 @@ function iteminfo2(&$Row, $level=0) {
     // Номер вещи
     $item['entry'] = $Row['entry'];
     // Название вещи
-    $item['name'] = !empty($Row['name_loc']) ? $Row['name_loc'] : $Row['name'];
+    $item['name'] = $Row['name'];
     // Тип вещи
     $item['type'] = $Row['InventoryType'];
     $item['icon'] = trim($Row['iconname'], "\r");
@@ -543,6 +569,8 @@ function iteminfo2(&$Row, $level=0) {
         if (!$item['speed'])
             $item['speed'] = -1;
     }
+    //Classes
+    $item['classes'] = classes_array($Row['AllowableClass']);
     // Armor
     $item['armor'] = $Row['armor'];
     $item['slot'] = $Row['InventoryType'];
@@ -588,7 +616,7 @@ function iteminfo2(&$Row, $level=0) {
         //TODO $UDWBaseconf['aowow']['db']
         $locks_row = $DB->selectCol('
 			SELECT lockID
-			FROM '.'host_mojotrollz_aowow'.'.?_aowow_lock
+			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_lock
 			WHERE
 				(type1=1 AND lockproperties1=?d) OR
 				(type2=1 AND lockproperties2=?d) OR
@@ -628,15 +656,16 @@ function iteminfo2(&$Row, $level=0) {
 function iteminfo($id, $level=0) {
     global $item_cols;
     global $DB;
+    global $UDWBaseconf;
     //TODO $UDWBaseconf['aowow']['db']
     $row = $DB->selectRow('
 		SELECT i.?#, i.entry, maxcount
 		{
-			, l.name_loc' . $_SESSION['locale'] . ' as `name_loc`
-			, l.description_loc' . $_SESSION['locale'] . ' as `description_loc`
+			, l.name' . ' as `name`
+			, l.description' . ' as `description`
 			, ?
 		}
-		FROM '.'host_mojotrollz_aowow'.'.?_aowow_icons, ?_item_template i
+		FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_icons, ?_item_template i
 		{ LEFT JOIN (?_locales_item l) ON l.entry=i.entry AND ? }
 		WHERE
 			(i.entry=?d and id=displayid)
@@ -644,4 +673,28 @@ function iteminfo($id, $level=0) {
 		', $item_cols[2 + $level], ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $id
     );
     return iteminfo2($row, $level);
+}
+
+function socket_type($type)
+{
+	switch($type)
+	{
+		case 1:
+			return '<span class="socket-meta q0">'.LOCALE_SOCKET_META.'</span>';
+		case 2:
+			return '<span class="socket-red q0">'.LOCALE_SOCKET_RED.'</span>';
+		case 4:
+			return '<span class="socket-yellow q0">'.LOCALE_SOCKET_META.'</span>';
+		case 8:
+			return '<span class="socket-blue q0">'.LOCALE_SOCKET_BLUE.'</span>';
+		default:
+			return '<a class="q0">Unknown Socket('.$type.')</a>';
+	}
+}
+
+function socket_bonus($bonus)
+{
+	global $DB;
+        global $UDWBaseconf;
+	return $DB->selectCell('SELECT `text` FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_itemenchantmet WHERE itemenchantmetID=?d LIMIT 1',$bonus); 
 }
