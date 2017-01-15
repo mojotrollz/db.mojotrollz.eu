@@ -30,7 +30,7 @@ if (!$npc = load_cache(1, intval($id))) {
     $npc = array();
     $row = $DB->selectRow('
 		SELECT
-			?#, c.entry, c.name,
+			?#, c.entry, c.name, ft.A, ft.H,
 			{
 				l.name as `name`,
 				l.subname as `subname`,

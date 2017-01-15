@@ -29,7 +29,7 @@ if (!$npcs = load_cache(2, $cache_str)) {
     global $DB;
 
     $rows = $DB->select('
-		SELECT c.?#, c.entry
+		SELECT c.?#, c.entry, A, H
 		{
 			, l.name_loc?d as `name_loc`
 			, l.subname_loc' . $_SESSION['locale'] . ' as `subname_loc`
@@ -44,7 +44,7 @@ if (!$npcs = load_cache(2, $cache_str)) {
 		{LIMIT ?d}
 		', $npc_cols[0], ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, ($type != '') ? $type : DBSIMPLE_SKIP, (isset($family)) ? $family : DBSIMPLE_SKIP, ($UDWBaseconf['limit'] != 0) ? $UDWBaseconf['limit'] : DBSIMPLE_SKIP
     );
-
+    
     $npcs = array();
     foreach ($rows as $numRow => $row) {
         $npcs[$numRow] = array();

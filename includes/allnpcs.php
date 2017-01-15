@@ -33,7 +33,7 @@ function creatureinfo2(&$Row) {
     // TODO: Месторасположение
     //	$creature['location'] = location($creature['entry'],'creature');
     // TODO: Реакция на фракции
-    $creature['react'] = ($Row['FactionAlliance']) . ',' . ($Row['FactionHorde']);
+    $creature['react'] = ($Row['A']) . ',' . ($Row['H']);
     // Тип NPC
     $creature['type'] = $Row['Creaturetype'];
     // Тег NPC
