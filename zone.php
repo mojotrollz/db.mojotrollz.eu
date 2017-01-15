@@ -181,6 +181,9 @@ if(!$zone = load_cache(ZONE_PAGE, $id))
             )
         );
     }
+    
+    if (IsSet($allitems))
+        $smarty->assign('allitems', $allitems);
 
 /*    // Положения объектофф:
     $zone['position'] = position($object['entry'], 'gameobject');
@@ -207,7 +210,7 @@ $page = array(
     'tab' => 1,
     'type' => 0,
     'typeid' => 0,
-    'path' => null,//path(1, 1), //path(0, 6, $zone['map'])
+    'path' => '[1, 1, '.$zone['map'].']',
     'comment' => true
 );
 

@@ -299,7 +299,7 @@ if (!$item = load_cache(5, $id)) {
 				FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 				{ LEFT JOIN (?_locales_creature l) ON l.entry=c.entry AND ? }
 				WHERE
-					skinloot=?d
+					skinninglootid=?d
 					AND factiontemplateID=FactionAlliance
 				', $npc_cols[0], ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $lootid
             );
