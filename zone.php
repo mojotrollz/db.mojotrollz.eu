@@ -8,6 +8,7 @@ require_once('includes/allitems.php');
 $smarty->config_load($conf_file, 'zone');
 
 // номер объекта;
+//$podrazdel = explode('/',$podrazdel)[0];
 $id = intval($podrazdel);
 
 $file = dirname(__FILE__).'/images/maps/enus/normal/'.$id;
@@ -56,6 +57,23 @@ if(!$zone = load_cache(ZONE_PAGE, $id))
         }
     }
     unset($rows);
+    
+    global $DB, $quest_class, $quest_cols;
+
+    $rows = $DB->select('
+		SELECT ?#
+		FROM ?_quest_template q
+		WHERE
+			1 = 1
+			{ AND ZoneOrSort = ? }
+			{ AND ZoneOrSort IN (?a) }
+		ORDER BY Title
+		{LIMIT ?d}
+		', $quest_cols[2], $id, ((!IsSet($ZoneOrSort)) and $Type) ? $quest_class[$Type] : DBSIMPLE_SKIP, ($UDWBaseconf['limit'] > 0) ? $UDWBaseconf['limit'] : DBSIMPLE_SKIP
+    );
+    $quests = array();
+    foreach ($rows as $numRow => $row)
+        $quests[] = GetQuestInfo($row, QUEST_DATAFLAG_LISTINGS);
 
     /*$rows = $DB->select('SELECT * FROM ?_dungeon_floor WHERE MapID = ?d', $zone['mapID']);
     if ($rows)
@@ -184,6 +202,9 @@ if(!$zone = load_cache(ZONE_PAGE, $id))
     
     if (IsSet($allitems))
         $smarty->assign('allitems', $allitems);
+    
+    if ($quests)
+        $smarty->assign('quests', $quests);
 
 /*    // Положения объектофф:
     $zone['position'] = position($object['entry'], 'gameobject');
@@ -213,7 +234,6 @@ $page = array(
     'path' => '[1, 1, '.$zone['map'].']',
     'comment' => true
 );
-
 // Комментарии
 //if($AoWoWconf['disable_comments'])
     $page['comment'] = false;

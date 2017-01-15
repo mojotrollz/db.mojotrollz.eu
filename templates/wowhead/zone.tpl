@@ -100,17 +100,15 @@
 
             <div id="tabs-generic"></div>
             <div id="listview-generic" class="listview"></div>
+            <!--<div id="lv-quests" class="listview"></div>-->
 <script type="text/javascript">
 var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($allitems)}{include						file='bricks/allitems_table.tpl'  data=$allitems}{/if}
 {if isset($zone.fishing)}{include file='bricks/item_table.tpl' id='fishing' name='fishing' tabsid='tabsRelated' data=$zone.fishing}{/if}
 {if isset($zone.subzones)}{include file='bricks/zone_table.tpl' id='zones' name='zones' tabsid='tabsRelated' data=$zone.subzones}{/if}
-
-{if $page.comment}new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});{/if}
+{if isset($quests)}{include file='bricks/quest_table.tpl' id='quests' name='quests' tabsid='tabsRelated' data=$quests}{/if}
 tabsRelated.flush();
 </script>
-
-{if $page.comment}{include file='bricks/contribute.tpl'}{/if}
 
         </div>
     </div>
