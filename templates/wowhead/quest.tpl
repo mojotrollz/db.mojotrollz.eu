@@ -430,9 +430,9 @@
 			<div id="tabs-generic"></div>
 			<div id="listview-generic" class="listview"></div>
 			<script type="text/javascript">
-				var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
+				//var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 				//new Listview({ldelim}template: 'comment', id: 'comments', name: LANG.tab_comments, tabs: tabsRelated, parent: 'listview-generic', data: lv_comments{rdelim});
-				tabsRelated.flush();
+				//tabsRelated.flush();
 			</script>
 
 			</div>

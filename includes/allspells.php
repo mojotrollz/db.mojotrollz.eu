@@ -948,7 +948,8 @@ function spellinfo($id) {
 function spellinfo2(&$row) {
     global $DB;
     global $item_cols;
-
+    global $UDWBaseconf;
+    
     if ($row) {
         $spell = array();
         $spell['entry'] = $row['spellID'];

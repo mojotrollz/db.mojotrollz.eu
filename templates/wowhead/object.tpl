@@ -68,12 +68,12 @@
 <br/>
 				<div id="mapper-generic"></div>
 				<div class="clear"></div>
-{literal}
+
 				<script type="text/javascript">
-					var myMapper = new Mapper({parent: 'mapper-generic', zone: '{$zonedata[0].zone}'});
+					var myMapper = new Mapper({ldelim}parent: 'mapper-generic', zone: '{$zonedata[0].zone}'{rdelim});
 					gE(ge('locations'), 'a')[0].onclick();
 				</script>
-{/literal}
+
 
 {else}
 				{#This_Object_cant_be_found#}

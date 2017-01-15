@@ -107,9 +107,9 @@
 
 			<div id="listview-generic" class="listview"></div>
 <script type="text/javascript">
+var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($allitems)}{include						file='bricks/allitems_table.tpl'  data=$allitems}{/if}
 {if isset($allspells)}{include					file='bricks/allspells_table.tpl' data=$allspells}{/if}
-var tabsRelated = new Tabs({ldelim}parent: ge('tabs-generic'){rdelim});
 {if isset($npc.sells)}{include 					file='bricks/item_table.tpl'	id='sells'						name='sells'					tabsid='tabsRelated' data=$npc.sells}{/if}
 {if isset($npc.drop)}{include 					file='bricks/item_table.tpl'	id='drop'							name='drops'					tabsid='tabsRelated' data=$npc.drop}{/if}
 {if isset($npc.pickpocketing)}{include	file='bricks/item_table.tpl'	id='pick-pocketing'		name='pickpocketing'	tabsid='tabsRelated' data=$npc.pickpocketing}{/if}

@@ -1559,15 +1559,15 @@ Tabs.prototype = {
             if (this.selectedTab != -1) {
                 B[this.selectedTab].className = ""
             }
-            B[C].className = "selected"
+            if(B[C]) B[C].className = "selected"
         }
         B = this.tabs[C];
-        if (B.onLoad) {
+        if (B && B.onLoad) {
             B.onLoad();
             B.onLoad = null
         }
-        this.onShow(this.tabs[C], this.tabs[this.selectedTab]);
-        if (B.onShow) {
+        if(this.tabs[C]) this.onShow(this.tabs[C], this.tabs[this.selectedTab]);
+        if (B && B.onShow) {
             B.onShow(this.tabs[this.selectedTab])
         }
         this.selectedTab = C
