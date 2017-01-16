@@ -159,12 +159,13 @@ if (!$npc = load_cache(1, intval($id))) {
     // Если это просто тренер
     $teachspells = $DB->select('
 		SELECT ?#, spellID
-		FROM ?_npc_trainer, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spell, '.$UDWBaseconf['aowow']['db'].'.?_aowow_spellicons
+		FROM host_mojotrollz_aowow_test.aowow_spell, host_mojotrollz_aowow_test.aowow_spellicons
 		WHERE
-			entry=?d
-			AND spellID=Spell
-			AND id=spellicon
-		', $spell_cols[2], $npc['entry']
+			
+                    (   spellID IN (SELECT spell FROM npc_trainer WHERE entry=?) OR
+                        spellID IN (SELECT ntt.spell FROM npc_trainer_template ntt LEFT JOIN creature_template ct ON ntt.entry = ct.TrainerTemplateId WHERE ct.entry=?))
+                    AND id=spellicon
+		', $spell_cols[2], $npc['entry'],$npc['entry']
     );
     if ($teachspells) {
         if (!(IsSet($npc['teaches'])))

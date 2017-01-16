@@ -285,9 +285,10 @@ if (!$spell = load_cache(13, intval($id))) {
 			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 			{ LEFT JOIN (?_locales_creature l) ON c.entry = l.entry AND ? }
 			WHERE
-				c.entry IN (SELECT entry FROM ?_npc_trainer WHERE spell=?d)
+				(c.entry IN (SELECT entry FROM ?_npc_trainer WHERE spell=?d) OR
+                                 c.entry IN (SELECT ct.entry FROM npc_trainer_template ntt LEFT JOIN creature_template ct ON ntt.entry = ct.TrainerTemplateId WHERE spell=?d))
 				AND factiontemplateID=FactionAlliance
-			', $npc_cols[0], ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $spell['entry']
+			', $npc_cols[0], ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $spell['entry'], $spell['entry']
         );
         if ($taughtbytrainers) {
             foreach ($taughtbytrainers as $i => $npcrow)
@@ -406,9 +407,13 @@ if (!$spell = load_cache(13, intval($id))) {
 			{ , name_loc?d AS name_loc, subname_loc' . $_SESSION['locale'] . ' AS subname_loc }
 			FROM '.$UDWBaseconf['aowow']['db'].'.?_aowow_factiontemplate, ?_creature_template c
 			{ LEFT JOIN (?_locales_creature l) ON c.entry = l.entry AND ? }
+                        LEFT JOIN creature_ai_scripts cas ON c.entry = cas.creature_id
 			WHERE
 				factiontemplateID=FactionAlliance
-			', $npc_cols[0], ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $spell['entry'], $spell['entry'], $spell['entry'], $spell['entry']
+                                AND (   (cas.action1_type = 11 AND cas.action1_param1 = ?) OR
+                                        (cas.action2_type = 11 AND cas.action2_param1 = ?) OR
+                                        (cas.action3_type = 11 AND cas.action3_param1 = ?) )
+			', $npc_cols[0], ($_SESSION['locale'] > 0) ? $_SESSION['locale'] : DBSIMPLE_SKIP, ($_SESSION['locale'] > 0) ? 1 : DBSIMPLE_SKIP, $spell['entry'], $spell['entry'], $spell['entry'], $spell['entry'],$spell['entry'],$spell['entry'],$spell['entry']
         );
         if ($usedbynpc) {
             $spell['usedbynpc'] = array();
