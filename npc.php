@@ -21,6 +21,7 @@ $smarty->config_load($conf_file, 'npc');
 global $DB;
 global $spell_cols;
 global $npc_cols;
+global $UDWBaseconf;
 
 // Заголовок страницы
 $id = $podrazdel;
@@ -159,7 +160,7 @@ if (!$npc = load_cache(1, intval($id))) {
     // Если это просто тренер
     $teachspells = $DB->select('
 		SELECT ?#, spellID
-		FROM host_mojotrollz_aowow_test.aowow_spell, host_mojotrollz_aowow_test.aowow_spellicons
+		FROM '.$UDWBaseconf['aowow']['db'].'.aowow_spell, '.$UDWBaseconf['aowow']['db'].'.aowow_spellicons
 		WHERE
 			
                     (   spellID IN (SELECT spell FROM npc_trainer WHERE entry=?) OR
